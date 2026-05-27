@@ -120,6 +120,13 @@ export function HomeScreen() {
                   Open Braga explorer
                   <ExternalLink className="h-4 w-4" />
                 </Link>
+                <Link
+                  href="/doc"
+                  className="inline-flex items-center gap-2 rounded-full border border-[rgba(240,191,99,0.24)] bg-[rgba(240,191,99,0.08)] px-5 py-3 text-sm font-semibold text-[var(--color-sand)] transition hover:border-[rgba(240,191,99,0.36)] hover:bg-[rgba(240,191,99,0.12)]"
+                >
+                  Open judge deck
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
 
@@ -346,7 +353,7 @@ export function HomeScreen() {
                 </div>
                 <div className="flex items-start gap-3">
                   <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-mint)]" />
-                  <p>Room and document relationships are visible through shared `roomId`, and grants show recipient plus expiry.</p>
+                  <p>Room and document relationships are visible through parent entity keys such as `roomKey` and `documentKey`, and grants show recipient plus expiry.</p>
                 </div>
               </div>
             </div>

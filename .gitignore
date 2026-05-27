@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# submission helpers
+DEMO_SCRIPT.md
+SUBMISSION.md
+AGENTS.md
+CLAUDE.md

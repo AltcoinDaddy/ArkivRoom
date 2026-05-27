@@ -102,6 +102,14 @@ export function CreateDocumentPanel() {
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
   const [form, setForm] = useState<FormState>(initialFormState);
+  const canSubmit =
+    isConnected &&
+    chainId === CHAIN.id &&
+    !!walletClient &&
+    form.roomId.length > 0 &&
+    form.title.trim().length >= 3 &&
+    form.summary.trim().length >= 12 &&
+    form.uri.trim().length > 0;
 
   const roomsQuery = useQuery({
     queryKey: ["project-rooms"],
@@ -251,10 +259,10 @@ export function CreateDocumentPanel() {
 
           <button
             type="submit"
-            disabled={createDocumentMutation.isPending}
+            disabled={!canSubmit || createDocumentMutation.isPending}
             className={cn(
               "inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-gold)] px-5 py-3 text-sm font-semibold text-[#1d1404] transition hover:translate-y-[-1px]",
-              createDocumentMutation.isPending && "cursor-wait opacity-80",
+              (!canSubmit || createDocumentMutation.isPending) && "cursor-not-allowed opacity-80",
             )}
           >
             {createDocumentMutation.isPending ? (

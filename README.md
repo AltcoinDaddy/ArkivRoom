@@ -1,23 +1,119 @@
 # ArkivRoom
 
-ArkivRoom is a Privacy-themed Arkiv challenge project: a wallet-owned private data room where users create confidential rooms, attach sensitive records, and grant time-bound access to other wallets on Arkiv Braga.
+ArkivRoom is a Privacy-themed Arkiv app for wallet-owned confidential data rooms. Users create a `Room`, attach `Document` records, and issue time-bound `Grant` entities to specific wallets. All application data lives on Arkiv Braga.
 
-## Stack
+## Challenge summary
+
+- Theme: `Privacy`
+- Network: Arkiv Braga testnet
+- Entity types: `Room`, `Document`, `Grant`
+- Project attribute: `arkivroom::privacy::braga::v1`
+
+## How this meets the challenge requirements
+
+- All data is stored as Arkiv entities on Arkiv Braga
+- The app uses at least 2 entity types: it uses 3 entity types
+- Every entity write uses the same unique `PROJECT_ATTRIBUTE`
+- Every project query uses the same unique `PROJECT_ATTRIBUTE`
+- The app includes a working UI flow for creating and querying entities
+- The repo is open source and includes setup instructions
+
+## What the app does
+
+ArkivRoom is built around a simple privacy workflow:
+
+1. Create a private room
+2. Add sensitive documents to that room
+3. Grant another wallet room-wide or document-level access
+4. Query the same project-scoped records back from Arkiv
+
+This makes Arkiv usage easy to verify because the `Room`, `Document`, and `Grant` entities are all visible in the UI and all reads and writes are scoped to the same project attribute.
+
+## Why Arkiv is necessary
+
+- Application records live on Arkiv Braga instead of an off-chain mock database
+- Ownership and creator metadata come from Arkiv’s entity model
+- Privacy-oriented access control is represented through first-class `Grant` entities
+- Project-scoped querying is enforced through a shared `PROJECT_ATTRIBUTE`
+
+## Entity model
+
+### `Room`
+
+Purpose: private container for confidential collaboration
+
+Payload fields:
+- `roomId`
+- `name`
+- `description`
+- `sensitivity`
+- `tags`
+
+Attributes:
+- `project`
+- `entity_type`
+- `room_id`
+- `owner`
+- `sensitivity`
+
+### `Document`
+
+Purpose: sensitive record attached to a room
+
+Payload fields:
+- `roomId`
+- `documentId`
+- `title`
+- `summary`
+- `uri`
+- `accessTier`
+
+Attributes:
+- `project`
+- `entity_type`
+- `room_id`
+- `document_id`
+- `owner`
+- `access_tier`
+
+### `Grant`
+
+Purpose: wallet-based access control layer
+
+Payload fields:
+- `roomId`
+- `documentId` optional
+- `grantId`
+- `recipient`
+- `permission`
+- `expiresAt`
+
+Attributes:
+- `project`
+- `entity_type`
+- `room_id`
+- `document_id`
+- `owner`
+- `recipient`
+- `permission`
+
+## Demo flow
+
+1. Connect a wallet on Braga
+2. Create a room such as `Investor DD`
+3. Add a document such as `Q2 revenue memo`
+4. Create a grant for another wallet
+5. Refresh the live panels to show `Room`, `Document`, and `Grant` entities fetched back from Arkiv
+
+## Tech stack
 
 - Next.js 16 App Router
 - Tailwind CSS 4
-- `wagmi` + injected wallet connector
-- `@arkiv-network/sdk` for Braga clients, payload encoding, and scoped queries
+- `wagmi` for browser wallet connection
+- `@arkiv-network/sdk` for Arkiv Braga clients, payload encoding, and queries
 - Zod for entity validation
-- Zustand for lightweight demo state
-- Sonner for UX feedback
-
-## Challenge fit
-
-- Theme: `Privacy`
-- Entity types: `Room`, `Document`, `Grant`
-- Every entity and every query uses the same unique `PROJECT_ATTRIBUTE`
-- Target network: Arkiv Braga testnet
+- Zustand for lightweight UI state
+- Sonner for feedback toasts
 
 ## Local development
 
@@ -27,26 +123,3 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
-## Current app status
-
-This starter already includes:
-
-- a branded ArkivRoom landing shell
-- Braga chain and injected-wallet setup
-- shared Arkiv constants and project scoping
-- Zod schemas for room, document, and grant payloads
-- Arkiv helper builders for entity payloads and project-scoped queries
-- a live create-room flow that writes `Room` entities to Arkiv Braga
-- a live create-document flow that writes `Document` entities tied to rooms
-- live readback panels for project-scoped rooms and documents
-
-The next implementation step is adding the `Grant` create/query flow so reviewers can see wallet-based access control end to end.
-
-## Important files
-
-- `/Users/daddy/Desktop/ns/ArkivRoom/src/app/page.tsx`
-- `/Users/daddy/Desktop/ns/ArkivRoom/src/components/home-screen.tsx`
-- `/Users/daddy/Desktop/ns/ArkivRoom/src/lib/arkiv.ts`
-- `/Users/daddy/Desktop/ns/ArkivRoom/src/lib/schemas.ts`
-- `/Users/daddy/Desktop/ns/ArkivRoom/src/store/arkiv-room.ts`

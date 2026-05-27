@@ -68,7 +68,7 @@ export const useArkivRoomStore = create<ArkivRoomState>((set) => ({
     },
     {
       label: "Live create + readback flow",
-      copy: "Rooms and documents can now be created from the UI and fetched back through project-scoped Arkiv queries.",
+      copy: "Rooms, documents, and grants can now be created from the UI and fetched back through project-scoped Arkiv queries.",
       status: "ready",
     },
   ],

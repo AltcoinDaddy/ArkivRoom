@@ -39,6 +39,11 @@ export type LiveDocument = DocumentInput & {
   createdAtBlock?: string;
 };
 
+export type LiveGrant = GrantInput & {
+  key: Hex;
+  createdAtBlock?: string;
+};
+
 function withProjectScope(attributes: Attribute[]): Attribute[] {
   return [
     { key: PROJECT_ATTRIBUTE_KEY, value: PROJECT_ATTRIBUTE },
@@ -119,6 +124,17 @@ export function buildProjectDocumentsQuery(limit = 24) {
     .limit(limit);
 }
 
+export function buildProjectGrantsQuery(limit = 30) {
+  return arkivPublicClient
+    .buildQuery()
+    .where(eq(PROJECT_ATTRIBUTE_KEY, PROJECT_ATTRIBUTE))
+    .where(eq(ENTITY_TYPE_ATTRIBUTE_KEY, ENTITY_TYPES.grant))
+    .withAttributes(true)
+    .withMetadata(true)
+    .withPayload(true)
+    .limit(limit);
+}
+
 export function getArkivWalletClient({
   account,
   provider,
@@ -174,5 +190,27 @@ export async function fetchProjectDocuments(limit = 24) {
   return result.entities
     .map(parseDocumentEntity)
     .filter((document): document is LiveDocument => document !== null)
+    .sort((left, right) => Number(right.createdAtBlock ?? "0") - Number(left.createdAtBlock ?? "0"));
+}
+
+export function parseGrantEntity(entity: Entity): LiveGrant | null {
+  try {
+    const payload = grantSchema.parse(entity.toJson());
+    return {
+      ...payload,
+      key: entity.key,
+      createdAtBlock: entity.createdAtBlock?.toString(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchProjectGrants(limit = 30) {
+  const result = await buildProjectGrantsQuery(limit).fetch();
+
+  return result.entities
+    .map(parseGrantEntity)
+    .filter((grant): grant is LiveGrant => grant !== null)
     .sort((left, right) => Number(right.createdAtBlock ?? "0") - Number(left.createdAtBlock ?? "0"));
 }

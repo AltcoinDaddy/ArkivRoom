@@ -100,6 +100,12 @@ export function CreateRoomPanel() {
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
   const [form, setForm] = useState<FormState>(initialFormState);
+  const canSubmit =
+    isConnected &&
+    chainId === CHAIN.id &&
+    !!walletClient &&
+    form.name.trim().length >= 3 &&
+    form.description.trim().length >= 12;
 
   const roomsQuery = useQuery({
     queryKey: ["project-rooms"],
@@ -229,10 +235,10 @@ export function CreateRoomPanel() {
 
           <button
             type="submit"
-            disabled={createRoomMutation.isPending}
+            disabled={!canSubmit || createRoomMutation.isPending}
             className={cn(
               "inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-mint)] px-5 py-3 text-sm font-semibold text-[#09201c] transition hover:translate-y-[-1px]",
-              createRoomMutation.isPending && "cursor-wait opacity-80",
+              (!canSubmit || createRoomMutation.isPending) && "cursor-not-allowed opacity-80",
             )}
           >
             {createRoomMutation.isPending ? (

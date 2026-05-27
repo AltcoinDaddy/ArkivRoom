@@ -30,6 +30,7 @@ import { cn, formatAddress } from "@/lib/utils";
 import { useArkivRoomStore } from "@/store/arkiv-room";
 import { CreateRoomPanel } from "./create-room-panel";
 import { CreateDocumentPanel } from "./create-document-panel";
+import { CreateGrantPanel } from "./create-grant-panel";
 import { WalletButton } from "./wallet-button";
 
 const entityIcons: Record<EntityType, typeof LockKeyhole> = {
@@ -233,6 +234,7 @@ export function HomeScreen() {
 
       <CreateRoomPanel />
       <CreateDocumentPanel />
+      <CreateGrantPanel />
 
       <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
@@ -421,15 +423,15 @@ export function HomeScreen() {
 
           <div className="mt-6 rounded-[1.5rem] border border-[rgba(240,191,99,0.18)] bg-[rgba(240,191,99,0.08)] p-5">
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-[var(--color-gold)]">
-              Next implementation target
+              Demo-ready path
             </p>
             <p className="mt-3 text-lg font-semibold text-[var(--color-sand)]">
-              Wire the create-room form to `buildRoomEntityInput`, then call `createEntity` with the
-              connected wallet client.
+              Connect a Braga wallet, create a room, attach a document, and issue a grant to another
+              wallet in under two minutes.
             </p>
             <p className="mt-2 text-sm leading-6 text-[rgba(244,236,215,0.72)]">
-              The schema and payload helpers are already in place so we only need the submit flow and
-              a readback query to complete the happy-path demo.
+              That full sequence is now wired in the UI and backed by project-scoped Arkiv entity
+              builders plus live readback panels for all three entity types.
             </p>
           </div>
         </div>

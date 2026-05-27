@@ -440,7 +440,7 @@ export function CreateGrantPanel() {
             ))
           ) : (
             <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-              No live grants found for this project yet. Create one to show reviewers the access-control
+              No live grants found for this project yet. Create one to demonstrate the access-control
               layer that completes the Privacy story.
             </div>
           )}

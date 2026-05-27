@@ -191,7 +191,7 @@ export function CreateRoomPanel() {
               onChange={(event) =>
                 setForm((current) => ({ ...current, description: event.target.value }))
               }
-              placeholder="Private diligence documents and short-lived reviewer access."
+              placeholder="Private diligence documents and short-lived wallet access."
               rows={4}
               className="w-full rounded-[1rem] border border-[var(--color-border)] bg-[#081111] px-4 py-3 text-sm text-[var(--color-sand)] outline-none transition placeholder:text-[rgba(244,236,215,0.34)] focus:border-[rgba(143,242,195,0.4)]"
             />

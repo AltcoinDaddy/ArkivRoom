@@ -234,7 +234,7 @@ export function CreateDocumentPanel() {
               onChange={(event) =>
                 setForm((current) => ({ ...current, summary: event.target.value }))
               }
-              placeholder="Summarize what the reviewer should know before opening the file."
+              placeholder="Summarize what the recipient should know before opening the file."
               rows={4}
               className="w-full rounded-[1rem] border border-[var(--color-border)] bg-[#081111] px-4 py-3 text-sm text-[var(--color-sand)] outline-none transition placeholder:text-[rgba(244,236,215,0.34)] focus:border-[rgba(143,242,195,0.4)]"
             />

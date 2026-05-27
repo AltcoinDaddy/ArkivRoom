@@ -58,7 +58,7 @@ export const useArkivRoomStore = create<ArkivRoomState>((set) => ({
     },
     {
       label: "Three entity types",
-      copy: "Room, Document, and Grant give us a clear architecture judges can understand instantly.",
+      copy: "Room, Document, and Grant give us a clear, verifiable architecture.",
       status: "ready",
     },
     {
@@ -87,7 +87,7 @@ export const useArkivRoomStore = create<ArkivRoomState>((set) => ({
     },
     {
       title: "Query the exact project slice",
-      copy: "Reviewers can see that every fetch starts with the same project attribute instead of mixing global data.",
+      copy: "Every fetch starts with the same project attribute, so only ArkivRoom data comes back.",
     },
   ],
   entityBlueprints: [

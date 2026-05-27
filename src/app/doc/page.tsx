@@ -72,8 +72,8 @@ const flowSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: "ArkivRoom Doc Deck",
-  description: "Presentation-style walkthrough of ArkivRoom for judges and reviewers.",
+  title: "ArkivRoom — Overview",
+  description: "A walkthrough of ArkivRoom's privacy workflow on Arkiv Braga.",
 };
 
 export default function DocPage() {
@@ -85,10 +85,7 @@ export default function DocPage() {
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[rgba(244,236,215,0.5)]">
-              ArkivRoom Judge Deck
-            </p>
-            <p className="text-sm font-semibold text-[var(--color-sand)]">
-              Scrollable submission narrative for reviewers
+              ArkivRoom
             </p>
           </div>
           <nav className="hidden items-center gap-2 lg:flex">
@@ -125,7 +122,7 @@ export default function DocPage() {
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-mint)]">
                 <Sparkles className="h-3.5 w-3.5" />
-                Judge overview
+                Overview
               </div>
               <div className="space-y-4">
                 <p className="font-mono text-xs uppercase tracking-[0.28em] text-[rgba(244,236,215,0.56)]">
@@ -167,7 +164,7 @@ export default function DocPage() {
         >
           <div className="space-y-6">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Slide 2 / The problem
+              The problem
             </p>
             <h2 className="max-w-2xl text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
               Privacy should not disappear just because collaboration becomes on-chain.
@@ -201,15 +198,14 @@ export default function DocPage() {
         >
           <div className="max-w-3xl space-y-4">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Slide 3 / The solution
+              The solution
             </p>
             <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
               Three entities create one clean privacy workflow.
             </h2>
             <p className="text-lg leading-8 text-[rgba(244,236,215,0.76)]">
-              ArkivRoom uses a compact Arkiv-native model that judges can understand immediately:
-              `Room` as the parent container, `Document` as the sensitive record, and `Grant` as the
-              access-control layer.
+              ArkivRoom uses a compact Arkiv-native model: `Room` as the parent container,
+              `Document` as the sensitive record, and `Grant` as the access-control layer.
             </p>
           </div>
 
@@ -251,7 +247,7 @@ export default function DocPage() {
           <div className="grid gap-8 lg:grid-cols-[1fr_1.05fr]">
             <div className="space-y-5">
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-                Slide 4 / Architecture
+                Architecture
               </p>
               <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
                 Built on Arkiv Braga with project-scoped entities and parent-key relationships.
@@ -355,10 +351,10 @@ export default function DocPage() {
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="space-y-5">
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-                Slide 5 / Demo flow
+                Demo flow
               </p>
               <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
-                Judges can verify the whole flow in under two minutes.
+                Verify the whole flow in under two minutes.
               </h2>
               <div className="space-y-3">
                 {flowSteps.map((step, index) => (
@@ -383,7 +379,7 @@ export default function DocPage() {
             <div className="flex flex-col gap-5">
               <div className="rounded-[1.8rem] border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] p-6">
                 <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-mint)]">
-                  Submission-ready summary
+                  Summary
                 </p>
                 <p className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
                   ArkivRoom turns Arkiv’s entity model into a real privacy workflow, not just a storage demo.
@@ -405,7 +401,7 @@ export default function DocPage() {
                 </div>
                 <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5">
                   <Eye className="h-5 w-5 text-[var(--color-mint)]" />
-                  <p className="mt-4 text-lg font-semibold text-[var(--color-sand)]">Judge-friendly</p>
+                  <p className="mt-4 text-lg font-semibold text-[var(--color-sand)]">Transparent</p>
                   <p className="mt-2 text-sm leading-6 text-[rgba(244,236,215,0.72)]">
                     The UI exposes the exact Room → Document → Grant flow and the readback queries.
                   </p>

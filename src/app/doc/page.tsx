@@ -12,7 +12,10 @@ import {
   Users,
   FlaskConical,
   ChevronRight,
-  ServerOff
+  ServerOff,
+  Lightbulb,
+  Code2,
+  Cpu
 } from "lucide-react";
 import Link from "next/link";
 import { CHAIN, PROJECT_ATTRIBUTE } from "@/lib/constants";
@@ -43,7 +46,7 @@ export default function PresentationDeck() {
       </div>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 1: HERO / HOOK
+          SLIDE 1: INTRODUCTION / HERO
       -------------------------------------------------------------------------- */}
       <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 relative overflow-hidden group">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(circle_at_top,rgba(143,242,195,0.12),transparent_60%)]" />
@@ -52,13 +55,13 @@ export default function PresentationDeck() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(244,236,215,0.1)] bg-[rgba(255,255,255,0.02)] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[rgba(244,236,215,0.8)]">
               <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold)]" />
-              ETHNS Arkiv Challenge Submission
+              Project Introduction
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-[-0.05em] text-white">
               ArkivRoom
             </h1>
             <p className="text-2xl md:text-4xl font-light text-[rgba(244,236,215,0.7)] max-w-4xl leading-[1.3]">
-              The privacy layer for wallet-owned confidential collaboration.
+              A decentralized alternative to traditional data rooms. Built for wallet-owned confidential collaboration on Arkiv Braga.
             </p>
           </div>
 
@@ -78,7 +81,6 @@ export default function PresentationDeck() {
           </div>
         </div>
         
-        {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
            <p className="font-mono text-[10px] uppercase tracking-[0.2em]">Scroll</p>
            <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent"></div>
@@ -86,19 +88,45 @@ export default function PresentationDeck() {
       </section>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 2: THE PROBLEM
+          SLIDE 2: THE INSPIRATION
       -------------------------------------------------------------------------- */}
       <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 bg-[#0a1515]">
+        <div className="max-w-6xl w-full grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-24 items-center">
+          <div className="space-y-8">
+            <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)]">
+              01 / The Inspiration
+            </p>
+            <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
+              Why build a Web3 data room?
+            </h2>
+            <p className="text-xl leading-relaxed text-[rgba(244,236,215,0.65)]">
+              Traditional data rooms (like Carta, DocuSign, or Firmex) are black boxes that own your sensitive data. Web3 has solved decentralized identity and money, but when it comes to sharing confidential documents natively... there is a massive gap.
+            </p>
+          </div>
+          
+          <div className="p-10 rounded-[2rem] border border-[rgba(240,191,99,0.2)] bg-[linear-gradient(180deg,rgba(240,191,99,0.05),transparent)]">
+            <Lightbulb className="w-12 h-12 text-[var(--color-gold)] mb-8" />
+            <p className="text-2xl text-white font-medium leading-snug">
+              "We were inspired to bridge this gap. What if DAOs, researchers, and startups could manage private due diligence documents with the same cryptographic security they use to manage their treasuries?"
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------------------
+          SLIDE 3: THE PROBLEM
+      -------------------------------------------------------------------------- */}
+      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12">
         <div className="max-w-6xl w-full grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-24 items-center">
           <div className="space-y-8">
             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-rose)]">
-              01 / The Problem
+              02 / The Problem
             </p>
             <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
-              Web3 solves transactions, but fails at private collaboration.
+              Privacy gets lost when collaboration moves on-chain.
             </h2>
             <p className="text-xl leading-relaxed text-[rgba(244,236,215,0.65)]">
-              Most decentralized applications force teams into an uncomfortable compromise: broadcast your sensitive data to the world, or fall back to centralized Web2 databases.
+              Most decentralized applications force teams into an uncomfortable compromise.
             </p>
           </div>
           
@@ -106,136 +134,123 @@ export default function PresentationDeck() {
             <div className="p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors">
                <ServerOff className="w-6 h-6 text-[var(--color-rose)] mb-4" />
                <h3 className="text-xl font-medium text-white mb-2">The Off-Chain Trap</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Teams rely on centralized cloud storage (AWS, Google Drive) for sensitive data, defeating the purpose of decentralized identity entirely.</p>
+               <p className="text-[rgba(244,236,215,0.6)]">Teams fall back to centralized cloud storage (AWS, Google Drive) for sensitive data, defeating the purpose of decentralized architecture.</p>
             </div>
-            <div className="p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-gold)]/30 transition-colors">
-               <Database className="w-6 h-6 text-[var(--color-gold)] mb-4" />
-               <h3 className="text-xl font-medium text-white mb-2">Structureless Storage</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Existing DApps stop at raw storage (like IPFS) without providing structured ownership, time-bound grants, or queryable relationships.</p>
+            <div className="p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors">
+               <Database className="w-6 h-6 text-[var(--color-rose)] mb-4" />
+               <h3 className="text-xl font-medium text-white mb-2">Structureless Public Storage</h3>
+               <p className="text-[rgba(244,236,215,0.6)]">Existing Web3 networks stop at raw storage (IPFS) without providing native ownership, access controls, or queryable relationships.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 3: THE SOLUTION
+          SLIDE 4: THE SOLUTION
+      -------------------------------------------------------------------------- */}
+      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 bg-[#0a1515]">
+        <div className="max-w-6xl w-full text-center space-y-12">
+           <div className="space-y-6 max-w-4xl mx-auto mb-16">
+             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-mint)]">
+              03 / The Solution
+            </p>
+            <h2 className="text-5xl md:text-7xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
+              A complete privacy workflow layer.
+            </h2>
+            <p className="text-2xl text-[rgba(244,236,215,0.65)] leading-relaxed">
+              ArkivRoom is a decentralized workspace where wallets cryptographically own Rooms, attach sensitive Documents, and issue time-bound access Grants to other wallets—all settled on Arkiv Braga.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------------------
+          SLIDE 5: TARGET AUDIENCE
       -------------------------------------------------------------------------- */}
       <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12">
         <div className="max-w-6xl w-full">
-           <div className="space-y-6 max-w-3xl mb-16">
-             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-mint)]">
-              02 / The Solution
-            </p>
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
-              ArkivRoom: The privacy workflow layer.
-            </h2>
-            <p className="text-xl text-[rgba(244,236,215,0.65)] leading-relaxed">
-              We built a decentralized, wallet-to-wallet confidential workspace where the data structure, ownership, and access grants all live strictly on Arkiv Braga.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-8 rounded-[2rem] border border-[rgba(143,242,195,0.2)] bg-[linear-gradient(180deg,rgba(143,242,195,0.05),transparent)] hover:-translate-y-1 transition-transform">
-              <LockKeyhole className="h-8 w-8 text-[var(--color-mint)] mb-6" />
-              <h3 className="text-2xl font-semibold text-white mb-3">1. The Room</h3>
-              <p className="text-[rgba(244,236,215,0.6)] text-base mb-6">The parent entity for a private workspace. It defines the confidential container that documents and grants inherit from.</p>
-            </div>
-            
-            <div className="p-8 rounded-[2rem] border border-[rgba(240,191,99,0.2)] bg-[linear-gradient(180deg,rgba(240,191,99,0.05),transparent)] hover:-translate-y-1 transition-transform">
-              <FileLock2 className="h-8 w-8 text-[var(--color-gold)] mb-6" />
-              <h3 className="text-2xl font-semibold text-white mb-3">2. The Document</h3>
-              <p className="text-[rgba(244,236,215,0.6)] text-base mb-6">A sensitive record attached to a room. It keeps both human-readable IDs and the parent room entity key.</p>
-            </div>
-            
-            <div className="p-8 rounded-[2rem] border border-[rgba(244,132,111,0.2)] bg-[linear-gradient(180deg,rgba(244,132,111,0.05),transparent)] hover:-translate-y-1 transition-transform">
-              <KeyRound className="h-8 w-8 text-[var(--color-rose)] mb-6" />
-              <h3 className="text-2xl font-semibold text-white mb-3">3. The Grant</h3>
-              <p className="text-[rgba(244,236,215,0.6)] text-base mb-6">A permission entity that gives another wallet room-wide or document-level access with a strict expiry date.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------------------------
-          SLIDE 4: REAL WORLD USE CASES
-      -------------------------------------------------------------------------- */}
-      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 bg-[#0a1515]">
-        <div className="max-w-6xl w-full">
           <div className="text-center space-y-6 max-w-3xl mx-auto mb-16">
              <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)]">
-              03 / Market Fit
+              04 / Target Audience
             </p>
             <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-white">
-              Where does ArkivRoom fit?
+              Who is this meant for?
             </h2>
             <p className="text-xl text-[rgba(244,236,215,0.65)]">
-              Real-world scenarios that desperately need wallet-based privacy.
+              ArkivRoom empowers Web3-native organizations to handle sensitive off-chain data securely.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-4 p-8 rounded-[2rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818]">
                <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                  <Briefcase className="w-8 h-8 text-white" />
                </div>
-               <h3 className="text-2xl font-medium text-white">Investor Due Diligence</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Startups can share sensitive cap tables, metrics, and strategy documents securely with specific VCs' wallet addresses.</p>
+               <h3 className="text-2xl font-medium text-white">Startups & VCs</h3>
+               <p className="text-[rgba(244,236,215,0.6)]">Managing Investor Due Diligence. Startups can share cap tables and financial metrics securely with specific VC wallet addresses.</p>
             </div>
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-4 p-8 rounded-[2rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818]">
                <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                  <Users className="w-8 h-8 text-white" />
                </div>
                <h3 className="text-2xl font-medium text-white">DAO Treasury Ops</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">DAOs can finally manage private payroll, contractor agreements, and legal documents without relying on centralized tools.</p>
+               <p className="text-[rgba(244,236,215,0.6)]">DAOs can finally manage private payroll, contractor agreements, and legal documents without relying on centralized corporate tools.</p>
             </div>
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-4 p-8 rounded-[2rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818]">
                <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                  <FlaskConical className="w-8 h-8 text-white" />
                </div>
-               <h3 className="text-2xl font-medium text-white">Medical & IP Research</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Confidential research and intellectual property can be mapped securely to identities using time-bound access grants.</p>
+               <h3 className="text-2xl font-medium text-white">Researchers & Creators</h3>
+               <p className="text-[rgba(244,236,215,0.6)]">Confidential medical research, IP, and proprietary algorithms can be mapped securely to identities using strict, time-bound grants.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 5: WHY ARKIV? (THE SECRET SAUCE)
+          SLIDE 6: WHAT WAS USED IN BUILDING IT (TECH STACK)
       -------------------------------------------------------------------------- */}
-      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12">
+      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 bg-[#0a1515]">
         <div className="max-w-6xl w-full grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-center">
            <div className="space-y-6">
             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-mint)]">
-              04 / The Tech
+              05 / Tech Stack
             </p>
             <h2 className="text-5xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
-              Why we built on Arkiv Braga.
+              What was used in building it.
             </h2>
             <p className="text-lg text-[rgba(244,236,215,0.65)] pt-4">
-              We aren't just storing data on a blockchain. We are utilizing Arkiv's native primitives to enforce security.
+              ArkivRoom is built using modern, production-ready Web3 infrastructure.
             </p>
           </div>
           
-          <div className="space-y-4">
-             <div className="flex gap-5 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start">
-                <ShieldCheck className="w-8 h-8 text-[var(--color-mint)] shrink-0 mt-1" />
+          <div className="grid sm:grid-cols-2 gap-4">
+             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
+                <Database className="w-8 h-8 text-[var(--color-mint)] shrink-0" />
                 <div>
-                  <h3 className="text-xl font-medium text-white mb-2">Native Ownership Attributes</h3>
-                  <p className="text-[rgba(244,236,215,0.6)]">Ownership and creator attribution come directly from Arkiv's `$owner` and `$creator` attributes. No complex smart contract logic required.</p>
+                  <h3 className="text-xl font-medium text-white">Arkiv SDK</h3>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Data modeling & queries.</p>
                 </div>
              </div>
-             <div className="flex gap-5 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start">
-                <Blocks className="w-8 h-8 text-[var(--color-gold)] shrink-0 mt-1" />
+             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
+                <Cpu className="w-8 h-8 text-[var(--color-gold)] shrink-0" />
                 <div>
-                  <h3 className="text-xl font-medium text-white mb-2">Strict Project Scoping</h3>
-                  <p className="text-[rgba(244,236,215,0.6)]">Every entity write and every query mandates the `arkivroom::privacy::braga::v1` attribute, creating an impenetrable application silo on a public layer.</p>
+                  <h3 className="text-xl font-medium text-white">Arkiv Braga</h3>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Testnet settlement layer.</p>
                 </div>
              </div>
-             <div className="flex gap-5 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start">
-                <Database className="w-8 h-8 text-[var(--color-rose)] shrink-0 mt-1" />
+             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
+                <Code2 className="w-8 h-8 text-white shrink-0" />
                 <div>
-                  <h3 className="text-xl font-medium text-white mb-2">Relational Mapping</h3>
-                  <p className="text-[rgba(244,236,215,0.6)]">We map complex hierarchical relationships on a flat datastore by threading parent keys (e.g., `roomKey`) into the custom attributes of child entities.</p>
+                  <h3 className="text-xl font-medium text-white">Next.js 16</h3>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">React application framework.</p>
+                </div>
+             </div>
+             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
+                <LockKeyhole className="w-8 h-8 text-[var(--color-rose)] shrink-0" />
+                <div>
+                  <h3 className="text-xl font-medium text-white">Wagmi & Viem</h3>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Wallet connection & hooks.</p>
                 </div>
              </div>
           </div>
@@ -243,55 +258,67 @@ export default function PresentationDeck() {
       </section>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 6: DEMO WORKFLOW (HOW TO VERIFY)
+          SLIDE 7: ARCHITECTURE & HOW IT WORKS
       -------------------------------------------------------------------------- */}
-      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 bg-[#0a1515]">
+      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12">
         <div className="max-w-6xl w-full">
-           <div className="space-y-4 max-w-3xl mb-16">
-             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-sand)] opacity-60">
-              05 / Verification
+           <div className="space-y-4 max-w-3xl mb-12">
+             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-mint)]">
+              06 / How it works
             </p>
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
-              How to verify the build.
+            <h2 className="text-5xl font-semibold tracking-[-0.04em] text-white leading-[1.1]">
+              The Arkiv Architecture
             </h2>
             <p className="text-xl text-[rgba(244,236,215,0.65)]">
-              You can test the entire lifecycle in under two minutes directly from the browser.
+              We leverage 3 core entities and native `$owner` attributes to build relationships on a flat datastore.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             {[
-               { step: "1", title: "Connect", desc: "Connect a wallet to the Braga testnet.", color: "text-[var(--color-sand)]" },
-               { step: "2", title: "Create", desc: "Create a Room (e.g., 'Series A Due Diligence').", color: "text-[var(--color-mint)]" },
-               { step: "3", title: "Attach", desc: "Add a Document to the newly created room.", color: "text-[var(--color-gold)]" },
-               { step: "4", title: "Grant", desc: "Issue a time-bound Grant to another wallet.", color: "text-[var(--color-rose)]" }
-             ].map((item) => (
-                <div key={item.step} className="p-6 bg-white/[0.02] border border-white/[0.05] rounded-2xl relative overflow-hidden">
-                   <div className={`text-6xl font-black absolute -right-4 -bottom-6 opacity-[0.03] ${item.color}`}>{item.step}</div>
-                   <p className={`font-mono text-xs uppercase tracking-[0.2em] mb-4 ${item.color}`}>Step {item.step}</p>
-                   <h3 className="text-2xl font-semibold text-white mb-2">{item.title}</h3>
-                   <p className="text-sm text-[rgba(244,236,215,0.6)] leading-relaxed">{item.desc}</p>
-                </div>
-             ))}
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-8 rounded-[2rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.02)] relative">
+              <LockKeyhole className="h-8 w-8 text-[var(--color-mint)] mb-6" />
+              <h3 className="text-2xl font-semibold text-white mb-3">1. The Room</h3>
+              <p className="text-[rgba(244,236,215,0.6)] text-sm mb-6">The parent entity. Defines the container that documents and grants inherit from.</p>
+              <div className="text-xs font-mono text-[var(--color-mint)] opacity-80">Parent Key Generated</div>
+            </div>
+            
+            <div className="p-8 rounded-[2rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.02)]">
+              <FileLock2 className="h-8 w-8 text-[var(--color-gold)] mb-6" />
+              <h3 className="text-2xl font-semibold text-white mb-3">2. The Document</h3>
+              <p className="text-[rgba(244,236,215,0.6)] text-sm mb-6">A sensitive record attached to a room. Inherits the parent `roomKey`.</p>
+              <div className="text-xs font-mono text-[var(--color-gold)] opacity-80">Linked via roomKey</div>
+            </div>
+            
+            <div className="p-8 rounded-[2rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.02)]">
+              <KeyRound className="h-8 w-8 text-[var(--color-rose)] mb-6" />
+              <h3 className="text-2xl font-semibold text-white mb-3">3. The Grant</h3>
+              <p className="text-[rgba(244,236,215,0.6)] text-sm mb-6">Gives a specific wallet access, restricted by an expiry date.</p>
+              <div className="text-xs font-mono text-[var(--color-rose)] opacity-80">Linked via roomKey</div>
+            </div>
           </div>
           
-          <div className="mt-8 p-6 rounded-2xl bg-[rgba(143,242,195,0.05)] border border-[rgba(143,242,195,0.1)] flex items-center justify-between">
+          <div className="mt-8 bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center justify-between">
              <div>
-                <h3 className="text-xl font-medium text-white mb-1">Step 5: Verify on the Network</h3>
-                <p className="text-[rgba(244,236,215,0.6)]">Refresh the Live Data panels to instantly query the Arkiv Network and pull your project-scoped records.</p>
+                <h4 className="text-white font-medium mb-1">Strict Project Scoping</h4>
+                <p className="text-sm text-[rgba(244,236,215,0.6)]">Every read and write is strictly siloed using the global project attribute.</p>
              </div>
-             <Database className="w-10 h-10 text-[var(--color-mint)] opacity-50" />
+             <div className="font-mono text-xs text-[var(--color-sand)] bg-black/40 p-4 rounded-xl">
+                .where(eq("project", "{PROJECT_ATTRIBUTE}"))
+             </div>
           </div>
         </div>
       </section>
 
       {/* -------------------------------------------------------------------------
-          SLIDE 7: CALL TO ACTION
+          SLIDE 8: CALL TO ACTION
       -------------------------------------------------------------------------- */}
-      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 relative overflow-hidden">
+      <section className="snap-start snap-always h-screen w-full flex items-center justify-center p-6 lg:p-12 relative overflow-hidden bg-[#0a1515]">
          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[32rem] bg-[radial-gradient(circle_at_bottom,rgba(240,191,99,0.1),transparent_60%)]" />
          
          <div className="max-w-4xl w-full text-center space-y-10 z-10">
+             <p className="font-mono text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)]">
+              07 / Live Demo
+            </p>
             <h2 className="text-6xl md:text-8xl font-semibold tracking-[-0.05em] text-white">
               Ready to verify?
             </h2>

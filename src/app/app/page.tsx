@@ -7,7 +7,7 @@ import { CreateRoomPanel } from "@/components/create-room-panel";
 import { CreateDocumentPanel } from "@/components/create-document-panel";
 import { CreateGrantPanel } from "@/components/create-grant-panel";
 import { CHAIN } from "@/lib/constants";
-import { LockKeyhole, FileText, KeyRound, ShieldAlert } from "lucide-react";
+import { LockKeyhole, FileText, KeyRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ActiveTab = "rooms" | "documents" | "grants";
@@ -52,30 +52,6 @@ export default function AppConsole() {
 
       <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-6 py-28 sm:px-10 md:py-32 lg:px-12">
         <div className="flex flex-col gap-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {!isReady ? (
-            <section className="rounded-[1.8rem] border border-[rgba(240,191,99,0.2)] bg-[rgba(240,191,99,0.08)] px-5 py-4 text-[rgba(244,236,215,0.82)] shadow-[0_18px_42px_rgba(0,0,0,0.28)]">
-              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[rgba(240,191,99,0.24)] bg-[rgba(240,191,99,0.12)] text-[var(--color-gold)]">
-                    <ShieldAlert className="h-4 w-4" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-[var(--color-sand)]">
-                      Read mode is open. Wallet connect is only needed for writes.
-                    </p>
-                    <p className="text-sm leading-6 text-[rgba(244,236,215,0.68)]">
-                      Judges can inspect the live Arkiv entities below right away. To create a new
-                      room, document, or grant, connect a wallet on Braga from the navbar.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-full border border-[rgba(240,191,99,0.2)] bg-[rgba(13,23,23,0.38)] px-4 py-2 text-xs font-mono uppercase tracking-[0.18em] text-[var(--color-gold)]">
-                  Read-only until Braga wallet is ready
-                </div>
-              </div>
-            </section>
-          ) : null}
-
           <section className="mt-4 flex flex-col gap-6 border-b border-[var(--color-border)] pb-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">

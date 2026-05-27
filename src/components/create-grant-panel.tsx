@@ -195,13 +195,18 @@ export function CreateGrantPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Create grant
+              Step 3
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Give another wallet access
+              Grant another wallet access
             </h2>
           </div>
           <ShieldPlus className="h-8 w-8 text-[var(--color-rose)]" />
+        </div>
+
+        <div className="mt-4 rounded-[1.35rem] border border-[rgba(244,132,111,0.16)] bg-[rgba(244,132,111,0.08)] p-4 text-sm leading-6 text-[rgba(244,236,215,0.76)]">
+          Finish the flow by giving another wallet room-wide access or document-specific access with
+          an expiry.
         </div>
 
         <form
@@ -346,10 +351,10 @@ export function CreateGrantPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Live project grants
+              Step 3 result
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Wallet-based access layer
+              Grant entities fetched back from Arkiv
             </h2>
           </div>
           <button

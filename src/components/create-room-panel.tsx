@@ -153,18 +153,18 @@ export function CreateRoomPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Create room
+              Step 1
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Ship the happy path
+              Create the room first
             </h2>
           </div>
           <Vault className="h-8 w-8 text-[var(--color-mint)]" />
         </div>
 
         <div className="mt-4 rounded-[1.35rem] border border-[rgba(143,242,195,0.16)] bg-[rgba(143,242,195,0.08)] p-4 text-sm leading-6 text-[rgba(244,236,215,0.76)]">
-          This form writes a real `Room` entity with your `PROJECT_ATTRIBUTE`, room metadata, and a
-          30-day expiry.
+          Start here. This writes the parent `Room` entity that the document and grant steps depend
+          on.
         </div>
 
         <form
@@ -255,10 +255,10 @@ export function CreateRoomPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Live project rooms
+              Step 1 result
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Scoped readback from Arkiv
+              Room entities fetched back from Arkiv
             </h2>
           </div>
           <button

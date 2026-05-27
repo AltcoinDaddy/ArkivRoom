@@ -166,13 +166,18 @@ export function CreateDocumentPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Create document
+              Step 2
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Attach records to a room
+              Add a document to that room
             </h2>
           </div>
           <FilePlus2 className="h-8 w-8 text-[var(--color-gold)]" />
+        </div>
+
+        <div className="mt-4 rounded-[1.35rem] border border-[rgba(240,191,99,0.16)] bg-[rgba(240,191,99,0.08)] p-4 text-sm leading-6 text-[rgba(244,236,215,0.76)]">
+          This step becomes useful after Step 1. Pick an existing room, then attach one sensitive
+          record to it.
         </div>
 
         <form
@@ -279,10 +284,10 @@ export function CreateDocumentPanel() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Live project documents
+              Step 2 result
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Second entity type, same scope
+              Document entities fetched back from Arkiv
             </h2>
           </div>
           <button

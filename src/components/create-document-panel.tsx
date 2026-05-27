@@ -22,7 +22,7 @@ type WindowWithEthereum = Window & {
 };
 
 type FormState = {
-  roomId: string;
+  roomKey: string;
   title: string;
   summary: string;
   uri: string;
@@ -30,7 +30,7 @@ type FormState = {
 };
 
 const initialFormState: FormState = {
-  roomId: "",
+  roomKey: "",
   title: "",
   summary: "",
   uri: "https://example.com/private/doc.pdf",
@@ -61,7 +61,7 @@ async function createDocumentWithWallet({
 }: {
   walletClient: WalletClient;
   owner: Hex;
-  values: FormState;
+  values: FormState & { roomId: string };
 }) {
   const browserWindow = window as WindowWithEthereum;
 
@@ -79,6 +79,7 @@ async function createDocumentWithWallet({
     entityType: ENTITY_TYPES.document,
     owner,
     roomId: values.roomId,
+    roomKey: values.roomKey as Hex,
     documentId,
     title: values.title.trim(),
     summary: values.summary.trim(),
@@ -102,14 +103,6 @@ export function CreateDocumentPanel() {
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
   const [form, setForm] = useState<FormState>(initialFormState);
-  const canSubmit =
-    isConnected &&
-    chainId === CHAIN.id &&
-    !!walletClient &&
-    form.roomId.length > 0 &&
-    form.title.trim().length >= 3 &&
-    form.summary.trim().length >= 12 &&
-    form.uri.trim().length > 0;
 
   const roomsQuery = useQuery({
     queryKey: ["project-rooms"],
@@ -122,6 +115,15 @@ export function CreateDocumentPanel() {
     queryFn: () => fetchProjectDocuments(30),
     staleTime: 15_000,
   });
+  const selectedRoom = (roomsQuery.data ?? []).find((room) => room.key === form.roomKey);
+  const canSubmit =
+    isConnected &&
+    chainId === CHAIN.id &&
+    !!walletClient &&
+    !!selectedRoom &&
+    form.title.trim().length >= 3 &&
+    form.summary.trim().length >= 12 &&
+    form.uri.trim().length > 0;
 
   const createDocumentMutation = useMutation({
     mutationFn: async () => {
@@ -137,21 +139,24 @@ export function CreateDocumentPanel() {
         throw new Error("Wallet client not ready yet. Reconnect and try again.");
       }
 
-      if (!form.roomId) {
+      if (!selectedRoom) {
         throw new Error("Choose a room first.");
       }
 
       return createDocumentWithWallet({
         walletClient,
         owner: address,
-        values: form,
+        values: {
+          ...form,
+          roomId: selectedRoom.roomId,
+        },
       });
     },
     onSuccess() {
       toast.success("Document created on Arkiv Braga.");
       setForm((current) => ({
         ...initialFormState,
-        roomId: current.roomId,
+        roomKey: current.roomKey,
       }));
       queryClient.invalidateQueries({ queryKey: ["project-documents"] });
     },
@@ -190,18 +195,27 @@ export function CreateDocumentPanel() {
           <label className="block space-y-2">
             <span className="text-sm font-semibold text-[var(--color-sand)]">Room</span>
             <select
-              value={form.roomId}
-              onChange={(event) => setForm((current) => ({ ...current, roomId: event.target.value }))}
+              value={form.roomKey}
+              onChange={(event) => setForm((current) => ({ ...current, roomKey: event.target.value }))}
               className="w-full rounded-[1rem] border border-[var(--color-border)] bg-[#081111] px-4 py-3 text-sm text-[var(--color-sand)] outline-none transition focus:border-[rgba(143,242,195,0.4)]"
             >
               <option value="">Select a room</option>
               {(roomsQuery.data ?? []).map((room) => (
-                <option key={room.key} value={room.roomId}>
+                <option key={room.key} value={room.key}>
                   {room.name} ({room.roomId})
                 </option>
               ))}
             </select>
           </label>
+
+          {selectedRoom ? (
+            <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
+                Parent room entity key
+              </p>
+              <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{selectedRoom.key}</p>
+            </div>
+          ) : null}
 
           <label className="block space-y-2">
             <span className="text-sm font-semibold text-[var(--color-sand)]">Document title</span>
@@ -343,10 +357,16 @@ export function CreateDocumentPanel() {
                   </div>
                   <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
                     <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      URI
+                      Room key
                     </p>
-                    <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{document.uri}</p>
+                    <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{document.roomKey}</p>
                   </div>
+                </div>
+                <div className="mt-3 rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
+                    URI
+                  </p>
+                  <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{document.uri}</p>
                 </div>
               </article>
             ))

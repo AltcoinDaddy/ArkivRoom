@@ -25,18 +25,18 @@ type WindowWithEthereum = Window & {
 type Scope = "room" | "document";
 
 type FormState = {
-  roomId: string;
+  roomKey: string;
   scope: Scope;
-  documentId: string;
+  documentKey: string;
   recipient: string;
   permission: "view" | "comment" | "download";
   expiresInDays: string;
 };
 
 const initialFormState: FormState = {
-  roomId: "",
+  roomKey: "",
   scope: "room",
-  documentId: "",
+  documentKey: "",
   recipient: "",
   permission: "view",
   expiresInDays: "7",
@@ -72,7 +72,7 @@ async function createGrantWithWallet({
 }: {
   walletClient: WalletClient;
   owner: Hex;
-  values: FormState;
+  values: FormState & { roomId: string; documentId?: string };
 }) {
   const browserWindow = window as WindowWithEthereum;
 
@@ -84,7 +84,7 @@ async function createGrantWithWallet({
     throw new Error("Connected wallet account not available.");
   }
 
-  const scopeId = values.scope === "document" ? values.documentId : "room-wide";
+  const scopeId = values.scope === "document" ? (values.documentId ?? "document") : "room-wide";
   const grantId = `${slugify(values.roomId)}-${slugify(values.recipient)}-${slugify(scopeId)}-${Date.now()
     .toString()
     .slice(-6)}`;
@@ -94,7 +94,9 @@ async function createGrantWithWallet({
     entityType: ENTITY_TYPES.grant,
     owner,
     roomId: values.roomId,
+    roomKey: values.roomKey as Hex,
     documentId: values.scope === "document" ? values.documentId : undefined,
+    documentKey: values.scope === "document" ? (values.documentKey as Hex) : undefined,
     grantId,
     recipient: values.recipient.trim() as Hex,
     permission: values.permission,
@@ -136,17 +138,19 @@ export function CreateGrantPanel() {
     staleTime: 15_000,
   });
 
+  const selectedRoom = (roomsQuery.data ?? []).find((room) => room.key === form.roomKey);
   const roomDocuments = useMemo(
-    () => (documentsQuery.data ?? []).filter((document) => document.roomId === form.roomId),
-    [documentsQuery.data, form.roomId],
+    () => (documentsQuery.data ?? []).filter((document) => document.roomKey === form.roomKey),
+    [documentsQuery.data, form.roomKey],
   );
+  const selectedDocument = roomDocuments.find((document) => document.key === form.documentKey);
   const canSubmit =
     isConnected &&
     chainId === CHAIN.id &&
     !!walletClient &&
-    form.roomId.length > 0 &&
+    !!selectedRoom &&
     form.recipient.trim().length > 0 &&
-    (form.scope === "room" || form.documentId.length > 0);
+    (form.scope === "room" || !!selectedDocument);
 
   const createGrantMutation = useMutation({
     mutationFn: async () => {
@@ -162,25 +166,29 @@ export function CreateGrantPanel() {
         throw new Error("Wallet client not ready yet. Reconnect and try again.");
       }
 
-      if (!form.roomId) {
+      if (!selectedRoom) {
         throw new Error("Choose a room first.");
       }
 
-      if (form.scope === "document" && !form.documentId) {
+      if (form.scope === "document" && !selectedDocument) {
         throw new Error("Choose a document for a document-scoped grant.");
       }
 
       return createGrantWithWallet({
         walletClient,
         owner: address,
-        values: form,
+        values: {
+          ...form,
+          roomId: selectedRoom.roomId,
+          documentId: selectedDocument?.documentId,
+        },
       });
     },
     onSuccess() {
       toast.success("Grant created on Arkiv Braga.");
       setForm((current) => ({
         ...initialFormState,
-        roomId: current.roomId,
+        roomKey: current.roomKey,
       }));
       queryClient.invalidateQueries({ queryKey: ["project-grants"] });
     },
@@ -219,24 +227,33 @@ export function CreateGrantPanel() {
           <label className="block space-y-2">
             <span className="text-sm font-semibold text-[var(--color-sand)]">Room</span>
             <select
-              value={form.roomId}
+              value={form.roomKey}
               onChange={(event) =>
                 setForm((current) => ({
                   ...current,
-                  roomId: event.target.value,
-                  documentId: "",
+                  roomKey: event.target.value,
+                  documentKey: "",
                 }))
               }
               className="w-full rounded-[1rem] border border-[var(--color-border)] bg-[#081111] px-4 py-3 text-sm text-[var(--color-sand)] outline-none transition focus:border-[rgba(143,242,195,0.4)]"
             >
               <option value="">Select a room</option>
               {(roomsQuery.data ?? []).map((room) => (
-                <option key={room.key} value={room.roomId}>
+                <option key={room.key} value={room.key}>
                   {room.name} ({room.roomId})
                 </option>
               ))}
             </select>
           </label>
+
+          {selectedRoom ? (
+            <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
+                Parent room entity key
+              </p>
+              <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{selectedRoom.key}</p>
+            </div>
+          ) : null}
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block space-y-2">
@@ -280,15 +297,15 @@ export function CreateGrantPanel() {
             <label className="block space-y-2">
               <span className="text-sm font-semibold text-[var(--color-sand)]">Document</span>
               <select
-                value={form.documentId}
+                value={form.documentKey}
                 onChange={(event) =>
-                  setForm((current) => ({ ...current, documentId: event.target.value }))
+                  setForm((current) => ({ ...current, documentKey: event.target.value }))
                 }
                 className="w-full rounded-[1rem] border border-[var(--color-border)] bg-[#081111] px-4 py-3 text-sm text-[var(--color-sand)] outline-none transition focus:border-[rgba(143,242,195,0.4)]"
               >
                 <option value="">Select a document</option>
                 {roomDocuments.map((document) => (
-                  <option key={document.key} value={document.documentId}>
+                  <option key={document.key} value={document.key}>
                     {document.title} ({document.documentId})
                   </option>
                 ))}
@@ -415,7 +432,7 @@ export function CreateGrantPanel() {
                       Target
                     </p>
                     <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">
-                      {grant.documentId ?? "room-wide"}
+                      {grant.documentKey ?? grant.roomKey}
                     </p>
                   </div>
                 </div>

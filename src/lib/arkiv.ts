@@ -76,6 +76,7 @@ export function buildDocumentEntityInput(input: DocumentInput) {
     attributes: withProjectScope([
       { key: ENTITY_TYPE_ATTRIBUTE_KEY, value: ENTITY_TYPES.document },
       { key: "room_id", value: document.roomId },
+      { key: "room_key", value: document.roomKey },
       { key: "document_id", value: document.documentId },
       { key: "owner", value: document.owner },
       { key: "access_tier", value: document.accessTier },
@@ -93,7 +94,9 @@ export function buildGrantEntityInput(input: GrantInput) {
     attributes: withProjectScope([
       { key: ENTITY_TYPE_ATTRIBUTE_KEY, value: ENTITY_TYPES.grant },
       { key: "room_id", value: grant.roomId },
+      { key: "room_key", value: grant.roomKey },
       { key: "document_id", value: grant.documentId ?? "room-wide" },
+      { key: "document_key", value: grant.documentKey ?? "room-wide" },
       { key: "owner", value: grant.owner },
       { key: "recipient", value: grant.recipient },
       { key: "permission", value: grant.permission },

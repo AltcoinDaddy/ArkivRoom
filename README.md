@@ -34,6 +34,7 @@ This makes Arkiv usage easy to verify because the `Room`, `Document`, and `Grant
 - Application records live on Arkiv Braga instead of an off-chain mock database
 - Ownership and creator metadata come from Arkiv’s entity model
 - Privacy-oriented access control is represented through first-class `Grant` entities
+- Relationships are represented using parent entity keys, not only human-readable IDs
 - Project-scoped querying is enforced through a shared `PROJECT_ATTRIBUTE`
 
 ## Entity model
@@ -62,6 +63,7 @@ Purpose: sensitive record attached to a room
 
 Payload fields:
 - `roomId`
+- `roomKey`
 - `documentId`
 - `title`
 - `summary`
@@ -72,6 +74,7 @@ Attributes:
 - `project`
 - `entity_type`
 - `room_id`
+- `room_key`
 - `document_id`
 - `owner`
 - `access_tier`
@@ -82,7 +85,9 @@ Purpose: wallet-based access control layer
 
 Payload fields:
 - `roomId`
+- `roomKey`
 - `documentId` optional
+- `documentKey` optional
 - `grantId`
 - `recipient`
 - `permission`
@@ -92,7 +97,9 @@ Attributes:
 - `project`
 - `entity_type`
 - `room_id`
+- `room_key`
 - `document_id`
+- `document_key`
 - `owner`
 - `recipient`
 - `permission`

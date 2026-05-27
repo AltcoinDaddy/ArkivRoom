@@ -4,6 +4,9 @@ import { ENTITY_TYPES, PROJECT_ATTRIBUTE } from "./constants";
 const walletAddress = z
   .string()
   .regex(/^0x[a-fA-F0-9]{40}$/, "Wallet address must be a valid EVM address.");
+const entityKey = z
+  .string()
+  .regex(/^0x[a-fA-F0-9]{64}$/, "Entity key must be a valid 32-byte hex value.");
 
 const baseSchema = z.object({
   project: z.literal(PROJECT_ATTRIBUTE),
@@ -22,6 +25,7 @@ export const roomSchema = baseSchema.extend({
 export const documentSchema = baseSchema.extend({
   entityType: z.literal(ENTITY_TYPES.document),
   roomId: z.string().min(3).max(64),
+  roomKey: entityKey,
   documentId: z.string().min(3).max(64),
   title: z.string().min(3).max(120),
   summary: z.string().min(12).max(280),
@@ -32,7 +36,9 @@ export const documentSchema = baseSchema.extend({
 export const grantSchema = baseSchema.extend({
   entityType: z.literal(ENTITY_TYPES.grant),
   roomId: z.string().min(3).max(64),
+  roomKey: entityKey,
   documentId: z.string().min(3).max(64).optional(),
+  documentKey: entityKey.optional(),
   grantId: z.string().min(3).max(64),
   recipient: walletAddress,
   permission: z.enum(["view", "comment", "download"]),

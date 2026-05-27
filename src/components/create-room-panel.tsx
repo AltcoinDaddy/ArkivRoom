@@ -24,11 +24,7 @@ const initialFormState: FormState = {
   tags: "due-diligence, founders, confidential",
 };
 
-type WindowWithEthereum = Window & {
-  ethereum?: {
-    request: (...args: unknown[]) => Promise<unknown>;
-  };
-};
+
 
 function slugify(value: string) {
   return value
@@ -50,10 +46,12 @@ function getWalletMessage(error: Error) {
 async function createRoomWithWallet({
   walletClient,
   owner,
+  provider,
   values,
 }: {
   walletClient: WalletClient;
   owner: Hex;
+  provider: any;
   values: FormState;
 }) {
   const roomId = `${slugify(values.name)}-${Date.now().toString().slice(-6)}`;
@@ -74,19 +72,13 @@ async function createRoomWithWallet({
     tags,
   });
 
-  const browserWindow = window as WindowWithEthereum;
-
-  if (!browserWindow.ethereum) {
-    throw new Error("Injected wallet provider not found.");
-  }
-
   if (!walletClient.account) {
     throw new Error("Connected wallet account not available.");
   }
 
   const arkivWalletClient = getArkivWalletClient({
     account: walletClient.account,
-    provider: browserWindow.ethereum,
+    provider,
   });
   const creation = await arkivWalletClient.createEntity(roomInput);
   await arkivWalletClient.waitForTransactionReceipt({ hash: creation.txHash });
@@ -95,7 +87,7 @@ async function createRoomWithWallet({
 }
 
 export function CreateRoomPanel() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const chainId = useChainId();
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
@@ -127,9 +119,15 @@ export function CreateRoomPanel() {
         throw new Error("Wallet client not ready yet. Reconnect and try again.");
       }
 
+      const provider = await connector?.getProvider();
+      if (!provider) {
+        throw new Error("Connected wallet provider not available.");
+      }
+
       return createRoomWithWallet({
         walletClient,
         owner: address,
+        provider,
         values: form,
       });
     },

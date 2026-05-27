@@ -16,11 +16,7 @@ import {
 import { CHAIN, ENTITY_TYPES, PROJECT_ATTRIBUTE } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
 
-type WindowWithEthereum = Window & {
-  ethereum?: {
-    request: (...args: unknown[]) => Promise<unknown>;
-  };
-};
+
 
 type Scope = "room" | "document";
 
@@ -68,26 +64,27 @@ function buildExpiry(days: string) {
 async function createGrantWithWallet({
   walletClient,
   owner,
+  provider,
   values,
 }: {
   walletClient: WalletClient;
   owner: Hex;
+  provider: any;
   values: FormState & { roomId: string; documentId?: string };
 }) {
-  const browserWindow = window as WindowWithEthereum;
-
-  if (!browserWindow.ethereum) {
-    throw new Error("Injected wallet provider not found.");
-  }
-
   if (!walletClient.account) {
     throw new Error("Connected wallet account not available.");
   }
 
   const scopeId = values.scope === "document" ? (values.documentId ?? "document") : "room-wide";
-  const grantId = `${slugify(values.roomId)}-${slugify(values.recipient)}-${slugify(scopeId)}-${Date.now()
-    .toString()
-    .slice(-6)}`;
+  
+  // Ensure the grantId stays well under the 64 character SDK limit
+  const shortRoomId = slugify(values.roomId).slice(0, 16);
+  const shortRecipient = slugify(values.recipient).slice(-8); // Grab last 8 characters of recipient address
+  const shortScopeId = slugify(scopeId).slice(0, 12);
+  const timestamp = Date.now().toString().slice(-6);
+
+  const grantId = `g-${shortRoomId}-${shortRecipient}-${shortScopeId}-${timestamp}`;
 
   const grantInput = buildGrantEntityInput({
     project: PROJECT_ATTRIBUTE,
@@ -105,7 +102,7 @@ async function createGrantWithWallet({
 
   const arkivWalletClient = getArkivWalletClient({
     account: walletClient.account,
-    provider: browserWindow.ethereum,
+    provider,
   });
   const creation = await arkivWalletClient.createEntity(grantInput);
   await arkivWalletClient.waitForTransactionReceipt({ hash: creation.txHash });
@@ -114,7 +111,7 @@ async function createGrantWithWallet({
 }
 
 export function CreateGrantPanel() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const chainId = useChainId();
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
@@ -174,9 +171,15 @@ export function CreateGrantPanel() {
         throw new Error("Choose a document for a document-scoped grant.");
       }
 
+      const provider = await connector?.getProvider();
+      if (!provider) {
+        throw new Error("Connected wallet provider not available.");
+      }
+
       return createGrantWithWallet({
         walletClient,
         owner: address,
+        provider,
         values: {
           ...form,
           roomId: selectedRoom.roomId,

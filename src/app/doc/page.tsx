@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import {
-  Blocks,
   Database,
   FileLock2,
   KeyRound,
   LockKeyhole,
-  ShieldCheck,
   Sparkles,
   PlaySquare,
   Briefcase,
@@ -107,7 +105,7 @@ export default function PresentationDeck() {
           <div className="p-10 rounded-[2rem] border border-[rgba(240,191,99,0.2)] bg-[linear-gradient(180deg,rgba(240,191,99,0.05),transparent)] flex flex-col justify-center h-full min-h-[300px]">
             <Lightbulb className="w-12 h-12 text-[var(--color-gold)] mb-8 drop-shadow-[0_0_12px_rgba(240,191,99,0.5)]" />
             <p className="text-2xl md:text-3xl text-white font-medium leading-snug">
-              "We were inspired to bridge this gap. What if DAOs, researchers, and startups could manage private due diligence documents with the same cryptographic security they use to manage their treasuries?"
+              &ldquo;We were inspired to bridge this gap. What if DAOs, researchers, and startups could manage private due diligence documents with the same cryptographic security they use to manage their treasuries?&rdquo;
             </p>
           </div>
         </div>
@@ -306,9 +304,9 @@ export default function PresentationDeck() {
                 <h4 className="text-white font-medium mb-1">Strict Project Scoping</h4>
                 <p className="text-sm text-[rgba(244,236,215,0.6)]">Every read and write is strictly siloed using the global project attribute.</p>
              </div>
-             <div className="font-mono text-xs text-[var(--color-sand)] bg-black/40 p-4 rounded-xl">
-                .where(eq("project", "{PROJECT_ATTRIBUTE}"))
-             </div>
+              <div className="font-mono text-xs text-[var(--color-sand)] bg-black/40 p-4 rounded-xl">
+                 {`.where(eq("project", "${PROJECT_ATTRIBUTE}"))`}
+              </div>
           </div>
         </div>
       </section>
@@ -326,9 +324,9 @@ export default function PresentationDeck() {
             <h2 className="text-6xl md:text-8xl font-semibold tracking-[-0.05em] text-white">
               Ready to verify?
             </h2>
-            <p className="text-2xl md:text-3xl font-light text-[rgba(244,236,215,0.7)] leading-snug">
-              This isn't a mock backend. The live application reads and writes directly to the Arkiv Braga testnet.
-            </p>
+             <p className="text-2xl md:text-3xl font-light text-[rgba(244,236,215,0.7)] leading-snug">
+               This isn&apos;t a mock backend. The live application reads and writes directly to the Arkiv Braga testnet.
+             </p>
             
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-10">
                <Link

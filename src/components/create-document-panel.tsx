@@ -15,11 +15,7 @@ import {
 import { CHAIN, ENTITY_TYPES, PROJECT_ATTRIBUTE } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
 
-type WindowWithEthereum = Window & {
-  ethereum?: {
-    request: (...args: unknown[]) => Promise<unknown>;
-  };
-};
+
 
 type FormState = {
   roomKey: string;
@@ -57,18 +53,14 @@ function getWalletMessage(error: Error) {
 async function createDocumentWithWallet({
   walletClient,
   owner,
+  provider,
   values,
 }: {
   walletClient: WalletClient;
   owner: Hex;
+  provider: any;
   values: FormState & { roomId: string };
 }) {
-  const browserWindow = window as WindowWithEthereum;
-
-  if (!browserWindow.ethereum) {
-    throw new Error("Injected wallet provider not found.");
-  }
-
   if (!walletClient.account) {
     throw new Error("Connected wallet account not available.");
   }
@@ -89,7 +81,7 @@ async function createDocumentWithWallet({
 
   const arkivWalletClient = getArkivWalletClient({
     account: walletClient.account,
-    provider: browserWindow.ethereum,
+    provider,
   });
   const creation = await arkivWalletClient.createEntity(documentInput);
   await arkivWalletClient.waitForTransactionReceipt({ hash: creation.txHash });
@@ -98,7 +90,7 @@ async function createDocumentWithWallet({
 }
 
 export function CreateDocumentPanel() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const chainId = useChainId();
   const { data: walletClient } = useWalletClient({ chainId: CHAIN.id });
   const queryClient = useQueryClient();
@@ -143,9 +135,15 @@ export function CreateDocumentPanel() {
         throw new Error("Choose a room first.");
       }
 
+      const provider = await connector?.getProvider();
+      if (!provider) {
+        throw new Error("Connected wallet provider not available.");
+      }
+
       return createDocumentWithWallet({
         walletClient,
         owner: address,
+        provider,
         values: {
           ...form,
           roomId: selectedRoom.roomId,

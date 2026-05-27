@@ -60,3 +60,4 @@ a {
   background: rgba(143, 242, 195, 0.28);
   color: var(--color-sand);
 }
+/* Force Tailwind recompilation to register navbar.tsx */

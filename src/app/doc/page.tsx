@@ -104,9 +104,9 @@ export default function PresentationDeck() {
             </p>
           </div>
           
-          <div className="p-10 rounded-[2rem] border border-[rgba(240,191,99,0.2)] bg-[linear-gradient(180deg,rgba(240,191,99,0.05),transparent)]">
-            <Lightbulb className="w-12 h-12 text-[var(--color-gold)] mb-8" />
-            <p className="text-2xl text-white font-medium leading-snug">
+          <div className="p-10 rounded-[2rem] border border-[rgba(240,191,99,0.2)] bg-[linear-gradient(180deg,rgba(240,191,99,0.05),transparent)] flex flex-col justify-center h-full min-h-[300px]">
+            <Lightbulb className="w-12 h-12 text-[var(--color-gold)] mb-8 drop-shadow-[0_0_12px_rgba(240,191,99,0.5)]" />
+            <p className="text-2xl md:text-3xl text-white font-medium leading-snug">
               "We were inspired to bridge this gap. What if DAOs, researchers, and startups could manage private due diligence documents with the same cryptographic security they use to manage their treasuries?"
             </p>
           </div>
@@ -130,16 +130,16 @@ export default function PresentationDeck() {
             </p>
           </div>
           
-          <div className="space-y-5">
-            <div className="p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors">
-               <ServerOff className="w-6 h-6 text-[var(--color-rose)] mb-4" />
-               <h3 className="text-xl font-medium text-white mb-2">The Off-Chain Trap</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Teams fall back to centralized cloud storage (AWS, Google Drive) for sensitive data, defeating the purpose of decentralized architecture.</p>
+          <div className="space-y-6">
+            <div className="p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors relative z-10">
+               <ServerOff className="w-8 h-8 text-[var(--color-rose)] mb-5" />
+               <h3 className="text-2xl font-medium text-white mb-3">The Off-Chain Trap</h3>
+               <p className="text-[rgba(244,236,215,0.6)] text-lg leading-relaxed">Teams fall back to centralized cloud storage (AWS, Google Drive) for sensitive data, defeating the purpose of decentralized architecture entirely.</p>
             </div>
-            <div className="p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors">
-               <Database className="w-6 h-6 text-[var(--color-rose)] mb-4" />
-               <h3 className="text-xl font-medium text-white mb-2">Structureless Public Storage</h3>
-               <p className="text-[rgba(244,236,215,0.6)]">Existing Web3 networks stop at raw storage (IPFS) without providing native ownership, access controls, or queryable relationships.</p>
+            <div className="p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[#0c1818] hover:border-[var(--color-rose)]/30 transition-colors relative z-10">
+               <Database className="w-8 h-8 text-[var(--color-rose)] mb-5" />
+               <h3 className="text-2xl font-medium text-white mb-3">Structureless Storage</h3>
+               <p className="text-[rgba(244,236,215,0.6)] text-lg leading-relaxed">Existing Web3 networks stop at raw storage without providing native ownership, access controls, or queryable relationships.</p>
             </div>
           </div>
         </div>
@@ -224,33 +224,37 @@ export default function PresentationDeck() {
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 gap-4">
-             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
-                <Database className="w-8 h-8 text-[var(--color-mint)] shrink-0" />
-                <div>
+          <div className="grid sm:grid-cols-2 gap-5">
+             <div className="flex gap-4 bg-[#0c1818] p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start relative overflow-hidden group hover:border-[rgba(143,242,195,0.3)] transition-colors">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(143,242,195,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <Database className="w-8 h-8 text-[var(--color-mint)] shrink-0 relative z-10" />
+                <div className="relative z-10">
                   <h3 className="text-xl font-medium text-white">Arkiv SDK</h3>
-                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Data modeling & queries.</p>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-2 leading-relaxed">Data modeling & relationship queries.</p>
                 </div>
              </div>
-             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
-                <Cpu className="w-8 h-8 text-[var(--color-gold)] shrink-0" />
-                <div>
+             <div className="flex gap-4 bg-[#0c1818] p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start relative overflow-hidden group hover:border-[rgba(240,191,99,0.3)] transition-colors">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(240,191,99,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <Cpu className="w-8 h-8 text-[var(--color-gold)] shrink-0 relative z-10" />
+                <div className="relative z-10">
                   <h3 className="text-xl font-medium text-white">Arkiv Braga</h3>
-                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Testnet settlement layer.</p>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-2 leading-relaxed">Testnet public settlement layer.</p>
                 </div>
              </div>
-             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
-                <Code2 className="w-8 h-8 text-white shrink-0" />
-                <div>
+             <div className="flex gap-4 bg-[#0c1818] p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start relative overflow-hidden group hover:border-[rgba(255,255,255,0.3)] transition-colors">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <Code2 className="w-8 h-8 text-white shrink-0 relative z-10" />
+                <div className="relative z-10">
                   <h3 className="text-xl font-medium text-white">Next.js 16</h3>
-                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">React application framework.</p>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-2 leading-relaxed">React app framework.</p>
                 </div>
              </div>
-             <div className="flex gap-4 bg-[#0c1818] p-6 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-center">
-                <LockKeyhole className="w-8 h-8 text-[var(--color-rose)] shrink-0" />
-                <div>
+             <div className="flex gap-4 bg-[#0c1818] p-8 rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] items-start relative overflow-hidden group hover:border-[rgba(244,132,111,0.3)] transition-colors">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(244,132,111,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <LockKeyhole className="w-8 h-8 text-[var(--color-rose)] shrink-0 relative z-10" />
+                <div className="relative z-10">
                   <h3 className="text-xl font-medium text-white">Wagmi & Viem</h3>
-                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-1">Wallet connection & hooks.</p>
+                  <p className="text-sm text-[rgba(244,236,215,0.6)] mt-2 leading-relaxed">Wallet connection & interactions.</p>
                 </div>
              </div>
           </div>

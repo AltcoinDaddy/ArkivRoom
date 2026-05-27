@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ArkivRoom
 
-## Getting Started
+ArkivRoom is a Privacy-themed Arkiv challenge project: a wallet-owned private data room where users create confidential rooms, attach sensitive records, and grant time-bound access to other wallets on Arkiv Braga.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 App Router
+- Tailwind CSS 4
+- `wagmi` + injected wallet connector
+- `@arkiv-network/sdk` for Braga clients, payload encoding, and scoped queries
+- Zod for entity validation
+- Zustand for lightweight demo state
+- Sonner for UX feedback
+
+## Challenge fit
+
+- Theme: `Privacy`
+- Entity types: `Room`, `Document`, `Grant`
+- Every entity and every query uses the same unique `PROJECT_ATTRIBUTE`
+- Target network: Arkiv Braga testnet
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Current app status
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This starter already includes:
 
-## Learn More
+- a branded ArkivRoom landing shell
+- Braga chain and injected-wallet setup
+- shared Arkiv constants and project scoping
+- Zod schemas for room, document, and grant payloads
+- Arkiv helper builders for entity payloads and a project-scoped room query
 
-To learn more about Next.js, take a look at the following resources:
+The next implementation step is wiring a create-room form to `buildRoomEntityInput()` and then submitting it through an Arkiv wallet client.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Important files
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/Users/daddy/Desktop/ns/ArkivRoom/src/app/page.tsx`
+- `/Users/daddy/Desktop/ns/ArkivRoom/src/components/home-screen.tsx`
+- `/Users/daddy/Desktop/ns/ArkivRoom/src/lib/arkiv.ts`
+- `/Users/daddy/Desktop/ns/ArkivRoom/src/lib/schemas.ts`
+- `/Users/daddy/Desktop/ns/ArkivRoom/src/store/arkiv-room.ts`

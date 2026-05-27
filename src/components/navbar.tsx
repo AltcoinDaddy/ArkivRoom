@@ -1,20 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LockKeyhole, FileText, Globe, Menu, X, Cpu } from "lucide-react";
+import { LockKeyhole, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { WalletButton } from "./wallet-button";
-import { ARKIV_EXPLORER_URL } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 export function Navbar() {
-  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navigation = [
-    { name: "Home", href: "/", icon: Globe },
-  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-5 md:px-8 w-full">

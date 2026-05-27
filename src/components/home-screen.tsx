@@ -4,19 +4,12 @@ import {
   ArrowRight,
   ExternalLink,
   LockKeyhole,
-  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
-import { useAccount, useChainId } from "wagmi";
-import { ARKIV_EXPLORER_URL, CHAIN } from "@/lib/constants";
+import { ARKIV_EXPLORER_URL } from "@/lib/constants";
 
 
 export function HomeScreen() {
-  const { isConnected } = useAccount();
-  const chainId = useChainId();
-
-  const isReadyForWrites = isConnected && chainId === CHAIN.id;
-
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-16 sm:px-10 lg:px-12 gap-16 sm:gap-24">
       

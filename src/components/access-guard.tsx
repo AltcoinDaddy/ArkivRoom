@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ArrowRight, LoaderCircle, ShieldAlert, Cpu, HelpCircle, Wallet } from "lucide-react";
+import { Check, ArrowRight, LoaderCircle, Cpu, HelpCircle, Wallet } from "lucide-react";
 import { useAccount, useChainId, useConnect, useConnectors, useSwitchChain } from "wagmi";
 import { CHAIN } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ function getErrorMessage(error: Error) {
 
 export function AccessGuard() {
   const connectors = useConnectors();
-  const { isConnected, address } = useAccount();
+  const { isConnected } = useAccount();
   const chainId = useChainId();
   const { connect, isPending: isConnecting } = useConnect();
   const { switchChain, isPending: isSwitching } = useSwitchChain();
@@ -80,7 +80,7 @@ export function AccessGuard() {
         {/* Card Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold tracking-tight text-[var(--color-sand)] sm:text-3xl">
-            Let's get you set up
+            Let&apos;s get you set up
           </h2>
           <p className="mt-2 text-sm text-[rgba(244,236,215,0.55)] font-light">
             Follow these two simple steps to access your secure document dashboard.

@@ -8,9 +8,11 @@ import { type Hex, type WalletClient } from "viem";
 import { useAccount, useChainId, useWalletClient } from "wagmi";
 import {
   buildDocumentEntityInput,
+  type BrowserEthereumProvider,
   fetchProjectDocuments,
   fetchProjectRooms,
   getArkivWalletClient,
+  isBrowserEthereumProvider,
 } from "@/lib/arkiv";
 import { CHAIN, ENTITY_TYPES, PROJECT_ATTRIBUTE } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
@@ -58,7 +60,7 @@ async function createDocumentWithWallet({
 }: {
   walletClient: WalletClient;
   owner: Hex;
-  provider: any;
+  provider: BrowserEthereumProvider;
   values: FormState & { roomId: string };
 }) {
   if (!walletClient.account) {
@@ -136,7 +138,7 @@ export function CreateDocumentPanel() {
       }
 
       const provider = await connector?.getProvider();
-      if (!provider) {
+      if (!isBrowserEthereumProvider(provider)) {
         throw new Error("Connected wallet provider not available.");
       }
 

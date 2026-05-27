@@ -8,10 +8,12 @@ import { type Hex, type WalletClient } from "viem";
 import { useAccount, useChainId, useWalletClient } from "wagmi";
 import {
   buildGrantEntityInput,
+  type BrowserEthereumProvider,
   fetchProjectDocuments,
   fetchProjectGrants,
   fetchProjectRooms,
   getArkivWalletClient,
+  isBrowserEthereumProvider,
 } from "@/lib/arkiv";
 import { CHAIN, ENTITY_TYPES, PROJECT_ATTRIBUTE } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
@@ -69,7 +71,7 @@ async function createGrantWithWallet({
 }: {
   walletClient: WalletClient;
   owner: Hex;
-  provider: any;
+  provider: BrowserEthereumProvider;
   values: FormState & { roomId: string; documentId?: string };
 }) {
   if (!walletClient.account) {
@@ -172,7 +174,7 @@ export function CreateGrantPanel() {
       }
 
       const provider = await connector?.getProvider();
-      if (!provider) {
+      if (!isBrowserEthereumProvider(provider)) {
         throw new Error("Connected wallet provider not available.");
       }
 

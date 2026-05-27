@@ -25,9 +25,18 @@ export const arkivPublicClient = createPublicClient({
   transport: http(),
 });
 
-type BrowserEthereumProvider = {
+export type BrowserEthereumProvider = {
   request: (...args: unknown[]) => Promise<unknown>;
 };
+
+export function isBrowserEthereumProvider(value: unknown): value is BrowserEthereumProvider {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "request" in value &&
+    typeof value.request === "function"
+  );
+}
 
 export type LiveRoom = RoomInput & {
   key: Hex;

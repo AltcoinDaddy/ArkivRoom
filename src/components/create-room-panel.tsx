@@ -6,7 +6,13 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { type Hex, type WalletClient } from "viem";
 import { useAccount, useChainId, useWalletClient } from "wagmi";
-import { fetchProjectRooms, buildRoomEntityInput, getArkivWalletClient } from "@/lib/arkiv";
+import {
+  fetchProjectRooms,
+  buildRoomEntityInput,
+  getArkivWalletClient,
+  type BrowserEthereumProvider,
+  isBrowserEthereumProvider,
+} from "@/lib/arkiv";
 import { CHAIN, ENTITY_TYPES, PROJECT_ATTRIBUTE } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
 
@@ -51,7 +57,7 @@ async function createRoomWithWallet({
 }: {
   walletClient: WalletClient;
   owner: Hex;
-  provider: any;
+  provider: BrowserEthereumProvider;
   values: FormState;
 }) {
   const roomId = `${slugify(values.name)}-${Date.now().toString().slice(-6)}`;
@@ -120,7 +126,7 @@ export function CreateRoomPanel() {
       }
 
       const provider = await connector?.getProvider();
-      if (!provider) {
+      if (!isBrowserEthereumProvider(provider)) {
         throw new Error("Connected wallet provider not available.");
       }
 

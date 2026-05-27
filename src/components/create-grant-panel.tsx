@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { KeyRound, LoaderCircle, RefreshCw, ShieldPlus } from "lucide-react";
+import { KeyRound, LoaderCircle, ShieldPlus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { type Hex, type WalletClient } from "viem";
@@ -203,7 +203,7 @@ export function CreateGrantPanel() {
   });
 
   return (
-    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+    <section className="max-w-2xl mx-auto">
       <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -369,88 +369,7 @@ export function CreateGrantPanel() {
         </form>
       </div>
 
-      <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Step 3 result
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Grant entities fetched back from Arkiv
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => grantsQuery.refetch()}
-            disabled={grantsQuery.isFetching}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-sand)] transition hover:border-[rgba(244,236,215,0.24)] disabled:cursor-wait disabled:opacity-75"
-          >
-            <RefreshCw className={cn("h-4 w-4", grantsQuery.isFetching && "animate-spin")} />
-            Refresh
-          </button>
-        </div>
 
-        <div className="mt-6 space-y-4">
-          {grantsQuery.isLoading ? (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm text-[rgba(244,236,215,0.72)]">
-              Loading project-scoped grants from Arkiv...
-            </div>
-          ) : grantsQuery.isError ? (
-            <div className="rounded-[1.35rem] border border-[rgba(244,132,111,0.18)] bg-[rgba(244,132,111,0.08)] p-5 text-sm text-[rgba(244,236,215,0.78)]">
-              Could not fetch grants from Braga right now. The access-control query is ready, but the RPC did not respond cleanly.
-            </div>
-          ) : grantsQuery.data && grantsQuery.data.length > 0 ? (
-            grantsQuery.data.map((grant) => (
-              <article
-                key={grant.key}
-                className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-[rgba(244,236,215,0.46)]">
-                      {grant.roomId}
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-[var(--color-sand)]">
-                      {grant.documentId ? "Document grant" : "Room-wide grant"}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-                      Recipient {formatAddress(grant.recipient)} can {grant.permission}
-                      {grant.documentId ? ` ${grant.documentId}` : " this room"} until{" "}
-                      {new Date(grant.expiresAt).toLocaleString()}.
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[rgba(244,132,111,0.18)] bg-[rgba(244,132,111,0.08)] px-3 py-2 font-mono text-xs uppercase tracking-[0.16em] text-[var(--color-rose)]">
-                    {grant.permission}
-                  </div>
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Owner
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[var(--color-sand)]">
-                      {formatAddress(grant.owner)}
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Target
-                    </p>
-                    <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">
-                      {grant.documentKey ?? grant.roomKey}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))
-          ) : (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-              No live grants found for this project yet. Create one to demonstrate the access-control
-              layer that completes the Privacy story.
-            </div>
-          )}
-        </div>
-      </div>
     </section>
   );
 }

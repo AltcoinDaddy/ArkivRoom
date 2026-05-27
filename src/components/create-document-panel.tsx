@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FilePlus2, LoaderCircle, RefreshCw } from "lucide-react";
+import { FilePlus2, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { type Hex, type WalletClient } from "viem";
@@ -166,7 +166,7 @@ export function CreateDocumentPanel() {
   });
 
   return (
-    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+    <section className="max-w-2xl mx-auto">
       <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -294,90 +294,7 @@ export function CreateDocumentPanel() {
         </form>
       </div>
 
-      <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Step 2 result
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Document entities fetched back from Arkiv
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => documentsQuery.refetch()}
-            disabled={documentsQuery.isFetching}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-sand)] transition hover:border-[rgba(244,236,215,0.24)] disabled:cursor-wait disabled:opacity-75"
-          >
-            <RefreshCw className={cn("h-4 w-4", documentsQuery.isFetching && "animate-spin")} />
-            Refresh
-          </button>
-        </div>
 
-        <div className="mt-6 space-y-4">
-          {documentsQuery.isLoading ? (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm text-[rgba(244,236,215,0.72)]">
-              Loading project-scoped documents from Arkiv...
-            </div>
-          ) : documentsQuery.isError ? (
-            <div className="rounded-[1.35rem] border border-[rgba(244,132,111,0.18)] bg-[rgba(244,132,111,0.08)] p-5 text-sm text-[rgba(244,236,215,0.78)]">
-              Could not fetch documents from Braga right now. The project-scoped query is ready, but the RPC did not respond cleanly.
-            </div>
-          ) : documentsQuery.data && documentsQuery.data.length > 0 ? (
-            documentsQuery.data.map((document) => (
-              <article
-                key={document.key}
-                className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-[rgba(244,236,215,0.46)]">
-                      {document.roomId}
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-[var(--color-sand)]">
-                      {document.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-                      {document.summary}
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[rgba(240,191,99,0.18)] bg-[rgba(240,191,99,0.08)] px-3 py-2 font-mono text-xs uppercase tracking-[0.16em] text-[var(--color-gold)]">
-                    {document.accessTier}
-                  </div>
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Owner
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[var(--color-sand)]">
-                      {formatAddress(document.owner)}
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Room key
-                    </p>
-                    <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{document.roomKey}</p>
-                  </div>
-                </div>
-                <div className="mt-3 rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                    URI
-                  </p>
-                  <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{document.uri}</p>
-                </div>
-              </article>
-            ))
-          ) : (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-              No live documents found for this project yet. Create a room, attach a document, and then
-              refresh this panel.
-            </div>
-          )}
-        </div>
-      </div>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { LoaderCircle, Plus, RefreshCw, Vault } from "lucide-react";
+import { LoaderCircle, Plus, Vault } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { type Hex, type WalletClient } from "viem";
@@ -152,7 +152,7 @@ export function CreateRoomPanel() {
   });
 
   return (
-    <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+    <section className="max-w-2xl mx-auto">
       <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -255,92 +255,7 @@ export function CreateRoomPanel() {
         </form>
       </div>
 
-      <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              Step 1 result
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-              Room entities fetched back from Arkiv
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => roomsQuery.refetch()}
-            disabled={roomsQuery.isFetching}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-sand)] transition hover:border-[rgba(244,236,215,0.24)] disabled:cursor-wait disabled:opacity-75"
-          >
-            <RefreshCw className={cn("h-4 w-4", roomsQuery.isFetching && "animate-spin")} />
-            Refresh
-          </button>
-        </div>
 
-        <div className="mt-6 space-y-4">
-          {roomsQuery.isLoading ? (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm text-[rgba(244,236,215,0.72)]">
-              Loading project-scoped rooms from Arkiv...
-            </div>
-          ) : roomsQuery.isError ? (
-            <div className="rounded-[1.35rem] border border-[rgba(244,132,111,0.18)] bg-[rgba(244,132,111,0.08)] p-5 text-sm text-[rgba(244,236,215,0.78)]">
-              Could not fetch rooms from Braga right now. The query helper is ready, but the RPC did not respond cleanly.
-            </div>
-          ) : roomsQuery.data && roomsQuery.data.length > 0 ? (
-            roomsQuery.data.map((room) => (
-              <article
-                key={room.key}
-                className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-[rgba(244,236,215,0.46)]">
-                      {room.roomId}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-semibold text-[var(--color-sand)]">{room.name}</h3>
-                    <p className="mt-2 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-                      {room.description}
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] px-3 py-2 font-mono text-xs uppercase tracking-[0.16em] text-[var(--color-mint)]">
-                    {room.sensitivity}
-                  </div>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {room.tags.map((tag) => (
-                    <span
-                      key={`${room.key}-${tag}`}
-                      className="rounded-full border border-[var(--color-border)] bg-[#081111] px-3 py-1.5 font-mono text-xs text-[var(--color-gold)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Owner
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[var(--color-sand)]">
-                      {formatAddress(room.owner)}
-                    </p>
-                  </div>
-                  <div className="rounded-[1rem] border border-[var(--color-border)] bg-[#081111] p-3">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.46)]">
-                      Entity key
-                    </p>
-                    <p className="mt-2 truncate font-mono text-xs text-[var(--color-sand)]">{room.key}</p>
-                  </div>
-                </div>
-              </article>
-            ))
-          ) : (
-            <div className="rounded-[1.35rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5 text-sm leading-7 text-[rgba(244,236,215,0.72)]">
-              No live rooms found for this project attribute yet. Use the form on the left to create the
-              first one and then refresh this panel.
-            </div>
-          )}
-        </div>
-      </div>
     </section>
   );
 }

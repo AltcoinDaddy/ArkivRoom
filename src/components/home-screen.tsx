@@ -28,6 +28,8 @@ import {
 } from "@/lib/constants";
 import { cn, formatAddress } from "@/lib/utils";
 import { useArkivRoomStore } from "@/store/arkiv-room";
+import { CreateRoomPanel } from "./create-room-panel";
+import { CreateDocumentPanel } from "./create-document-panel";
 import { WalletButton } from "./wallet-button";
 
 const entityIcons: Record<EntityType, typeof LockKeyhole> = {
@@ -228,6 +230,9 @@ export function HomeScreen() {
           </div>
         </aside>
       </section>
+
+      <CreateRoomPanel />
+      <CreateDocumentPanel />
 
       <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-6 backdrop-blur-xl sm:p-8">

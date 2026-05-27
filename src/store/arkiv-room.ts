@@ -63,13 +63,13 @@ export const useArkivRoomStore = create<ArkivRoomState>((set) => ({
     },
     {
       label: "Wallet and Braga setup",
-      copy: "Injected-wallet connection is ready; the next step is to bind submit handlers to Arkiv writes.",
+      copy: "Injected-wallet connection is live and the write helpers are wired to Arkiv Braga.",
       status: "ready",
     },
     {
       label: "Live create + readback flow",
-      copy: "Add the form submit actions and a scoped query list to finish the demo path.",
-      status: "next",
+      copy: "Rooms and documents can now be created from the UI and fetched back through project-scoped Arkiv queries.",
+      status: "ready",
     },
   ],
   demoFlow: [

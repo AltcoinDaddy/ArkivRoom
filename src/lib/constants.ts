@@ -6,6 +6,7 @@ export const ARKIV_EXPLORER_URL = CHAIN.blockExplorers?.default.url ?? "";
 export const PROJECT_ATTRIBUTE_KEY = "project";
 export const PROJECT_ATTRIBUTE = "arkivroom::privacy::braga::v1";
 export const ENTITY_TYPE_ATTRIBUTE_KEY = "entity_type";
+export const DEFAULT_ENTITY_EXPIRY_SECONDS = 60 * 60 * 24 * 30;
 
 export const ENTITY_TYPES = {
   room: "arkiv_room",

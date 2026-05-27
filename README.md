@@ -36,9 +36,12 @@ This starter already includes:
 - Braga chain and injected-wallet setup
 - shared Arkiv constants and project scoping
 - Zod schemas for room, document, and grant payloads
-- Arkiv helper builders for entity payloads and a project-scoped room query
+- Arkiv helper builders for entity payloads and project-scoped queries
+- a live create-room flow that writes `Room` entities to Arkiv Braga
+- a live create-document flow that writes `Document` entities tied to rooms
+- live readback panels for project-scoped rooms and documents
 
-The next implementation step is wiring a create-room form to `buildRoomEntityInput()` and then submitting it through an Arkiv wallet client.
+The next implementation step is adding the `Grant` create/query flow so reviewers can see wallet-based access control end to end.
 
 ## Important files
 

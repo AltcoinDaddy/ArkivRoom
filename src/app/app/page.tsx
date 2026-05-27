@@ -7,7 +7,7 @@ import { CreateRoomPanel } from "@/components/create-room-panel";
 import { CreateDocumentPanel } from "@/components/create-document-panel";
 import { CreateGrantPanel } from "@/components/create-grant-panel";
 import { CHAIN } from "@/lib/constants";
-import { LockKeyhole, FileText, KeyRound, Cpu, ShieldAlert } from "lucide-react";
+import { LockKeyhole, FileText, KeyRound, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ActiveTab = "rooms" | "documents" | "grants";
@@ -79,10 +79,6 @@ export default function AppConsole() {
           <section className="mt-4 flex flex-col gap-6 border-b border-[var(--color-border)] pb-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(244,236,215,0.1)] bg-[rgba(255,255,255,0.02)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[rgba(244,236,215,0.5)]">
-                  <Cpu className="h-3 w-3" />
-                  Sovereign Cryptographic Ledger Console
-                </div>
                 <h1 className="text-4xl font-bold tracking-tight text-[var(--color-sand)] sm:text-5xl">
                   Vault Control Center
                 </h1>

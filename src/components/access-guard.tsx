@@ -25,10 +25,8 @@ export function AccessGuard() {
   const onWrongChain = isConnected && chainId !== CHAIN.id;
   const isBusy = isConnecting || isSwitching;
 
-  // Step calculations
   const step1Completed = isConnected;
   const step2Completed = isConnected && !onWrongChain;
-  
   const step1Active = !isConnected;
   const step2Active = isConnected && onWrongChain;
 
@@ -61,23 +59,17 @@ export function AccessGuard() {
 
   return (
     <div className="relative flex min-h-[65vh] w-full flex-col items-center justify-center px-4 py-8 md:py-16">
-      
-      {/* ── Background Cyber Glows ── */}
       <div className="absolute -top-12 left-1/2 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(143,242,195,0.06)_0%,transparent_70%)] blur-2xl pointer-events-none" />
       {onWrongChain && (
         <div className="absolute -top-12 left-1/2 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(244,132,111,0.05)_0%,transparent_70%)] blur-2xl pointer-events-none" />
       )}
 
-      {/* ── Visual Onboarding Card ── */}
       <div className="relative w-full max-w-[480px] rounded-[2rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.65)] p-8 md:p-10 shadow-[0_32px_80px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-300 hover:border-[rgba(244,236,215,0.2)] overflow-hidden group">
-        
-        {/* Top Scanline Glow */}
         <div className={cn(
           "absolute inset-x-0 top-0 h-[2px] opacity-60 group-hover:opacity-100 transition-opacity duration-300 animate-pulse",
           onWrongChain ? "bg-[var(--color-rose)]" : "bg-[var(--color-mint)]"
         )} />
 
-        {/* Card Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold tracking-tight text-[var(--color-sand)] sm:text-3xl">
             Let&apos;s get you set up
@@ -87,27 +79,23 @@ export function AccessGuard() {
           </p>
         </div>
 
-        {/* ── Vertical Stepper ── */}
         <div className="relative pl-8 space-y-8 before:absolute before:left-3.5 before:top-2 before:bottom-2 before:w-[1px] before:bg-[rgba(244,236,215,0.1)]">
-          
-          {/* Progress fill line */}
-          <div 
+          <div
             className={cn(
               "absolute left-3.5 top-2 w-[1px] bg-[var(--color-mint)] transition-all duration-500",
               step1Completed && !step2Active ? "bottom-2" : step1Completed ? "h-10" : "h-0"
             )}
           />
 
-          {/* STEP 1: Connect Wallet */}
+          {/* Step 1 */}
           <div className={cn(
             "relative transition-opacity duration-300",
             !step1Active && !step1Completed && "opacity-40"
           )}>
-            {/* Step Bubble */}
             <div className={cn(
               "absolute -left-8 top-0.5 flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold border transition-all duration-300",
-              step1Completed 
-                ? "bg-[rgba(143,242,195,0.15)] border-[var(--color-mint)] text-[var(--color-mint)] shadow-[0_0_10px_rgba(143,242,195,0.2)]" 
+              step1Completed
+                ? "bg-[rgba(143,242,195,0.15)] border-[var(--color-mint)] text-[var(--color-mint)] shadow-[0_0_10px_rgba(143,242,195,0.2)]"
                 : step1Active
                   ? "bg-[rgba(240,191,99,0.1)] border-[var(--color-gold)] text-[var(--color-gold)] animate-pulse"
                   : "bg-[rgba(255,255,255,0.02)] border-[rgba(244,236,215,0.1)] text-[rgba(244,236,215,0.4)]"
@@ -128,16 +116,15 @@ export function AccessGuard() {
             </div>
           </div>
 
-          {/* STEP 2: Switch to Braga Network */}
+          {/* Step 2 */}
           <div className={cn(
             "relative transition-opacity duration-300",
             !step2Active && !step2Completed && "opacity-40"
           )}>
-            {/* Step Bubble */}
             <div className={cn(
               "absolute -left-8 top-0.5 flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold border transition-all duration-300",
-              step2Completed 
-                ? "bg-[rgba(143,242,195,0.15)] border-[var(--color-mint)] text-[var(--color-mint)] shadow-[0_0_10px_rgba(143,242,195,0.2)]" 
+              step2Completed
+                ? "bg-[rgba(143,242,195,0.15)] border-[var(--color-mint)] text-[var(--color-mint)] shadow-[0_0_10px_rgba(143,242,195,0.2)]"
                 : step2Active
                   ? "bg-[rgba(244,132,111,0.1)] border-[var(--color-rose)] text-[var(--color-rose)] animate-pulse"
                   : "bg-[rgba(255,255,255,0.02)] border-[rgba(244,236,215,0.1)] text-[rgba(244,236,215,0.4)]"
@@ -158,12 +145,11 @@ export function AccessGuard() {
             </div>
           </div>
 
-          {/* STEP 3: Enter Vault */}
+          {/* Step 3 */}
           <div className={cn(
             "relative transition-opacity duration-300",
             !step2Completed && "opacity-40"
           )}>
-            {/* Step Bubble */}
             <div className={cn(
               "absolute -left-8 top-0.5 flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold border border-dashed transition-all duration-300",
               step2Completed
@@ -185,10 +171,8 @@ export function AccessGuard() {
               </p>
             </div>
           </div>
-
         </div>
 
-        {/* ── Responsive Action Button ── */}
         <div className="mt-10 space-y-4">
           {step1Active ? (
             <button
@@ -232,7 +216,6 @@ export function AccessGuard() {
             </div>
           )}
 
-          {/* Faucet Support */}
           <div className="flex justify-center">
             <a
               href="https://braga.holesky.arkiv.network"
@@ -245,7 +228,6 @@ export function AccessGuard() {
             </a>
           </div>
         </div>
-
       </div>
     </div>
   );

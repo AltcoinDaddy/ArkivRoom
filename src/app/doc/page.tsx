@@ -12,20 +12,13 @@ import {
   Wallet,
 } from "lucide-react";
 import Link from "next/link";
-import { CHAIN, PROJECT_ATTRIBUTE } from "@/lib/constants";
+import { PROJECT_ATTRIBUTE } from "@/lib/constants";
 
 const slideLinks = [
-  { href: "#hero", label: "Pitch" },
-  { href: "#problem", label: "Problem" },
-  { href: "#solution", label: "Solution" },
+  { href: "#hero", label: "Overview" },
+  { href: "#entity-model", label: "Entity Model" },
   { href: "#architecture", label: "Architecture" },
-  { href: "#flow", label: "Flow" },
-];
-
-const problemPoints = [
-  "Sensitive collaboration data is often trapped in off-chain tools that users do not truly own.",
-  "Public blockchains are tamper-proof, but raw privacy workflows are hard to model cleanly.",
-  "Most demos stop at storage. They do not show structured ownership, access grants, and queryable relationships.",
+  { href: "#workflow", label: "Workflow" },
 ];
 
 const entityCards = [
@@ -72,8 +65,8 @@ const flowSteps = [
 ];
 
 export const metadata: Metadata = {
-  title: "ArkivRoom — Overview",
-  description: "A walkthrough of ArkivRoom's privacy workflow on Arkiv Braga.",
+  title: "ArkivRoom — Documentation",
+  description: "Technical architecture and documentation for ArkivRoom.",
 };
 
 export default function DocPage() {
@@ -113,23 +106,20 @@ export default function DocPage() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-8 sm:px-8 lg:px-10">
         <section
           id="hero"
-          className="relative overflow-hidden rounded-[2.25rem] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(16,34,34,0.92),rgba(8,17,17,0.94))] px-6 py-12 sm:px-10 sm:py-16 lg:min-h-[88vh] lg:px-14 lg:py-18"
+          className="relative overflow-hidden rounded-[2.25rem] border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(16,34,34,0.92),rgba(8,17,17,0.94))] px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-18"
         >
-          <div className="absolute right-8 top-8 hidden rounded-full border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-mint)] lg:block">
-            Privacy on Arkiv Braga
-          </div>
           <div className="flex h-full flex-col justify-between gap-12">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-mint)]">
                 <Sparkles className="h-3.5 w-3.5" />
-                Overview
+                Documentation
               </div>
               <div className="space-y-4">
                 <p className="font-mono text-xs uppercase tracking-[0.28em] text-[rgba(244,236,215,0.56)]">
                   ArkivRoom
                 </p>
                 <h1 className="max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-[var(--color-sand)] sm:text-6xl lg:text-7xl">
-                  The privacy layer for wallet-owned confidential collaboration.
+                  Wallet-owned confidential collaboration.
                 </h1>
                 <p className="max-w-3xl text-lg leading-8 text-[rgba(244,236,215,0.78)] sm:text-xl">
                   ArkivRoom is a web3-native private data room on Arkiv Braga. Users create a `Room`,
@@ -137,71 +127,16 @@ export default function DocPage() {
                 </p>
               </div>
             </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                { label: "Theme", value: "Privacy" },
-                { label: "Network", value: CHAIN.name },
-                { label: "Project attribute", value: PROJECT_ATTRIBUTE },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5"
-                >
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[rgba(244,236,215,0.48)]">
-                    {item.label}
-                  </p>
-                  <p className="mt-3 text-xl font-semibold text-[var(--color-sand)]">{item.value}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
         <section
-          id="problem"
-          className="grid gap-6 rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:min-h-[82vh] lg:grid-cols-[1.05fr_0.95fr] lg:px-14 lg:py-14"
-        >
-          <div className="space-y-6">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              The problem
-            </p>
-            <h2 className="max-w-2xl text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
-              Privacy should not disappear just because collaboration becomes on-chain.
-            </h2>
-            <p className="max-w-2xl text-lg leading-8 text-[rgba(244,236,215,0.76)]">
-              Teams need a way to model confidential workflows on a tamper-proof public data layer
-              without losing structure, ownership, or explicit access control.
-            </p>
-          </div>
-
-          <div className="grid gap-4">
-            {problemPoints.map((point, index) => (
-              <article
-                key={point}
-                className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[rgba(240,191,99,0.12)] font-mono text-sm font-semibold text-[var(--color-gold)]">
-                    0{index + 1}
-                  </div>
-                  <p className="text-base leading-7 text-[rgba(244,236,215,0.76)]">{point}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section
-          id="solution"
-          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:min-h-[88vh] lg:px-14 lg:py-14"
+          id="entity-model"
+          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:px-14 lg:py-14"
         >
           <div className="max-w-3xl space-y-4">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-              The solution
-            </p>
             <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
-              Three entities create one clean privacy workflow.
+              Entity Model
             </h2>
             <p className="text-lg leading-8 text-[rgba(244,236,215,0.76)]">
               ArkivRoom uses a compact Arkiv-native model: `Room` as the parent container,
@@ -242,15 +177,12 @@ export default function DocPage() {
 
         <section
           id="architecture"
-          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:min-h-[88vh] lg:px-14 lg:py-14"
+          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:px-14 lg:py-14"
         >
           <div className="grid gap-8 lg:grid-cols-[1fr_1.05fr]">
             <div className="space-y-5">
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-                Architecture
-              </p>
               <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
-                Built on Arkiv Braga with project-scoped entities and parent-key relationships.
+                Architecture
               </h2>
               <div className="space-y-3 text-base leading-7 text-[rgba(244,236,215,0.76)]">
                 <div className="flex items-start gap-3 rounded-[1.2rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-4">
@@ -345,16 +277,13 @@ export default function DocPage() {
         </section>
 
         <section
-          id="flow"
-          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:min-h-[82vh] lg:px-14 lg:py-14"
+          id="workflow"
+          className="rounded-[2.25rem] border border-[var(--color-border)] bg-[rgba(16,34,34,0.78)] px-6 py-10 sm:px-10 lg:px-14 lg:py-14"
         >
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="space-y-5">
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-[rgba(244,236,215,0.54)]">
-                Demo flow
-              </p>
               <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[var(--color-sand)] sm:text-5xl">
-                Verify the whole flow in under two minutes.
+                Workflow
               </h2>
               <div className="space-y-3">
                 {flowSteps.map((step, index) => (
@@ -376,21 +305,7 @@ export default function DocPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-              <div className="rounded-[1.8rem] border border-[rgba(143,242,195,0.18)] bg-[rgba(143,242,195,0.08)] p-6">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-mint)]">
-                  Summary
-                </p>
-                <p className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[var(--color-sand)]">
-                  ArkivRoom turns Arkiv’s entity model into a real privacy workflow, not just a storage demo.
-                </p>
-                <p className="mt-3 text-sm leading-7 text-[rgba(244,236,215,0.76)]">
-                  It uses three connected entity types, one shared project attribute, and parent
-                  entity keys to model confidential collaboration, document ownership, and time-bound
-                  wallet access on Arkiv Braga.
-                </p>
-              </div>
-
+            <div className="flex flex-col gap-5 pt-2 lg:pt-16">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[rgba(255,255,255,0.03)] p-5">
                   <Wallet className="h-5 w-5 text-[var(--color-gold)]" />
@@ -408,7 +323,7 @@ export default function DocPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/"
                   className="inline-flex items-center gap-2 rounded-full bg-[var(--color-mint)] px-5 py-3 text-sm font-semibold text-[#09201c] transition hover:translate-y-[-1px]"
